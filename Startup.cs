@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Hosting;
 using ndso_bowling.Database;
-using System;
 
 namespace ndso_bowling
 {
@@ -22,9 +22,18 @@ namespace ndso_bowling
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<DatabaseConnection>(options =>
                 options.UseSqlServer(Configuration["AZURE_SQL_CONNECTION_STRING"]));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://colathro.us.auth0.com/";
+                options.Audience = "https://localhost:5001/";
+            });
 
             services.AddControllers();
 
@@ -52,6 +61,9 @@ namespace ndso_bowling
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

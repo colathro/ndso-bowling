@@ -1,15 +1,16 @@
-import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
 import App from "./App";
 
-const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
-const rootElement = document.getElementById("root");
-
 ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
+  <Auth0Provider
+    domain="colathro.us.auth0.com"
+    clientId="9c2Os4Hnr81V5AdcQ2hXl9jD7CX0ltfv"
+    redirectUri={window.location.origin}
+    audience="https://localhost:5001/"
+  >
     <App />
-  </BrowserRouter>,
-  rootElement
+  </Auth0Provider>,
+  document.getElementById("root")
 );

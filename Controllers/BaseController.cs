@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 using ndso_bowling.Database;
 using ndso_bowling.Enums;
 
 namespace ndso_bowling.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class BaseController : ControllerBase
     {
