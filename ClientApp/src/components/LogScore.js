@@ -57,7 +57,7 @@ class LogScore extends Component {
           ></input>
         </div>
         <div>
-          Score
+          Game Score (0 - 300)
           <input
             type="number"
             onChange={(e) => {
