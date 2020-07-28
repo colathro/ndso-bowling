@@ -10,7 +10,7 @@ namespace ndso_bowling.Database
         public int Score { get; set; }
         public string Location { get; set; }
         public string Date { get; set; }
-        public byte[] Image { get; set; }
+        public byte[] ScoreImage { get; set; }
         public Athlete Athlete { get; set; }
         public ReviewStatus Review { get; set; }
     }
