@@ -49,7 +49,7 @@ namespace ndso_bowling.Controllers
         {
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var athlete = this._database.Users.FirstOrDefault(u => u.Id == userId).Athlete;
+            var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
 
             var games = this._database.Games.Where(a => a.Athlete == athlete).ToList();
             return Ok(games);
