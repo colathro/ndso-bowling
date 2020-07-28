@@ -6,6 +6,7 @@ import LogoutButton from "../auth/LogoutButton";
 import MyProfile from "./MyProfile";
 import LogScore from "./LogScore";
 import MyScores from "./MyScores";
+import Admin from "./Admin";
 
 const Main = (props) => {
   return (
@@ -15,6 +16,7 @@ const Main = (props) => {
       </button>
       <button onClick={() => props.history.push("/logscore")}>Log Score</button>
       <button onClick={() => props.history.push("/myscores")}>My Scores</button>
+      <button onClick={() => props.history.push("/admin")}>Admin Portal</button>
     </div>
   );
 };
@@ -33,6 +35,7 @@ const Home = (props) => {
         <Route path="/myprofile" exact component={MyProfile} />
         <Route path="/logscore" exact component={LogScore} />
         <Route path="/myscores" exact component={MyScores} />
+        <Route path="/admin" exact component={Admin} />
       </Switch>
     </div>
   );

@@ -25,41 +25,59 @@ namespace ndso_bowling.Controllers
             _database = Database;
         }
         
-        [HttpGet]
+        [HttpGet("AllAthletes")]
         public IActionResult GetAllAthletes()
         {
             var athletes = this._database.Athletes.ToList();
             return Ok(athletes);
         }
 
-        [HttpPut]
-        public IActionResult ApproveAthlete(string first, string last)
+        [HttpPut("ApproveAthlete")]
+        public IActionResult ApproveAthlete(int id)
         {
-            var athlete = this._database.Athletes.Where(a => a.FirstName.Equals(first) && a.LastName.Equals(last)).FirstOrDefault();
+            var athlete = this._database.Athletes.Where(a => a.Id == id).FirstOrDefault();
             athlete.Approved = true;
             this._database.SaveChanges();
             return Ok(athlete);
         }
 
-        [HttpGet]
-        public IActionResult GetGameFromAthlete(string first, string last)
+        [HttpGet("GameFromAthlete")]
+        public IActionResult GetGameFromAthlete(int id)
         {
-            var game = this._database.Games.Where(e => e.Athlete.FirstName.Equals(first) && e.Athlete.LastName.Equals(last));
+            var game = this._database.Games.Where(g => g.Athlete.Id == id);
             return Ok(game);
         }
 
-        [HttpGet]
+        [HttpGet("AllGames")]
         public IActionResult GetAllGames()
         {
             var games = this._database.Games.ToList();
             return Ok(games);
         }
 
-        [HttpGet]
+        [HttpGet("UnreviewedGames")]
         public IActionResult GetUnreviewedGames()
         {
-            var games = this._database.Games.Where(e => e.Review == ReviewStatus.NotReviewed).ToList();
+            var games = this._database.Games.Where(g => g.Review == ReviewStatus.NotReviewed).ToList();
             return Ok(games);
-        }        
+        }
+
+        [HttpPut("ApproveGame")]
+        public IActionResult ApproveGame(int id)
+        {
+            var game = this._database.Games.Where(g => g.Id == id).FirstOrDefault();
+            game.Review = ReviewStatus.Reviewed;
+            this._database.SaveChanges();
+            return Ok(game);
+        }   
+
+        [HttpPut("DenyGame")]
+        public IActionResult DenyGame(int id)
+        {
+            var game = this._database.Games.Where(g => g.Id == id).FirstOrDefault();
+            game.Review = ReviewStatus.Denied;
+            this._database.SaveChanges();
+            return Ok(game);
+        }  
     }
 }
