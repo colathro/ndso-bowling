@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
 using ndso_bowling.Database;
 
@@ -33,6 +34,12 @@ namespace ndso_bowling
             {
                 options.Authority = "https://colathro.us.auth0.com/";
                 options.Audience = Configuration["Audience"];
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "Roles",
+                    RoleClaimType = "https://schemas.quickstarts.com/roles"
+                };
             });
 
             services.AddControllers();

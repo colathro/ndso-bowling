@@ -11,7 +11,7 @@ using ndso_bowling.Enums;
 namespace ndso_bowling.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("[controller]")]
     public class BaseController : ControllerBase
     {
