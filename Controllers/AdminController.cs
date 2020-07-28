@@ -24,12 +24,42 @@ namespace ndso_bowling.Controllers
             _logger = logger;
             _database = Database;
         }
+        
+        [HttpGet]
+        public IActionResult GetAllAthletes()
+        {
+            var athletes = this._database.Athletes.ToList();
+            return Ok(athletes);
+        }
+
+        [HttpPut]
+        public IActionResult ApproveAthlete(string first, string last)
+        {
+            var athlete = this._database.Athletes.Where(a => a.FirstName.Equals(first) && a.LastName.Equals(last)).FirstOrDefault();
+            athlete.Approved = true;
+            this._database.SaveChanges();
+            return Ok(athlete);
+        }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetGameFromAthlete(string first, string last)
         {
-            this._database.Games.Where(e => e.Review == ReviewStatus.NotReviewed).ToList();
-            return Ok("Working!");
+            var game = this._database.Games.Where(e => e.Athlete.FirstName.Equals(first) && e.Athlete.LastName.Equals(last));
+            return Ok(game);
         }
+
+        [HttpGet]
+        public IActionResult GetAllGames()
+        {
+            var games = this._database.Games.ToList();
+            return Ok(games);
+        }
+
+        [HttpGet]
+        public IActionResult GetUnreviewedGames()
+        {
+            var games = this._database.Games.Where(e => e.Review == ReviewStatus.NotReviewed).ToList();
+            return Ok(games);
+        }        
     }
 }
