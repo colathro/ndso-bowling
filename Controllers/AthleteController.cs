@@ -66,7 +66,7 @@ namespace ndso_bowling.Controllers
 
             var user = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId);
 
-            if (athlete.Birthday != DateTime.MinValue)
+            if (athlete.Birthday != null)
             {
                 user.Athlete.Birthday = athlete.Birthday;
             }
@@ -85,6 +85,10 @@ namespace ndso_bowling.Controllers
             if (athlete.PhoneNumber != null)
             {
                 user.Athlete.PhoneNumber = athlete.PhoneNumber;
+            }
+            if (athlete.Email != null)
+            {
+                user.Athlete.Email = athlete.Email;
             }
 
             this._database.SaveChanges();

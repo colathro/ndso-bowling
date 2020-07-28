@@ -77,7 +77,7 @@ class MyProfile extends Component {
             await this.updateProfile();
           }}
         >
-          <label>
+          <div>
             First Name
             <input
               type="text"
@@ -86,7 +86,57 @@ class MyProfile extends Component {
                 this.state.athlete.firstName = e.target.value;
               }}
             ></input>
-          </label>
+          </div>
+          <div>
+            Middle Name
+            <input
+              type="text"
+              defaultValue={this.state.athlete?.middleName}
+              onChange={(e) => {
+                this.state.athlete.middleName = e.target.value;
+              }}
+            ></input>
+          </div>
+          <div>
+            Last Name
+            <input
+              type="text"
+              defaultValue={this.state.athlete?.lastName}
+              onChange={(e) => {
+                this.state.athlete.lastName = e.target.value;
+              }}
+            ></input>
+          </div>
+          <div>
+            Birthday
+            <input
+              type="date"
+              value={this.state.athlete?.birthday}
+              onChange={(e) => {
+                this.state.athlete.birthday = e.target.value;
+              }}
+            />
+          </div>
+          <div>
+            Phone Number
+            <input
+              type="text"
+              defaultValue={this.state.athlete?.phoneNumber}
+              onChange={(e) => {
+                this.state.athlete.phoneNumber = e.target.value;
+              }}
+            ></input>
+          </div>
+          <div>
+            Email
+            <input
+              type="email"
+              defaultValue={this.state.athlete?.email}
+              onChange={(e) => {
+                this.state.athlete.email = e.target.value;
+              }}
+            ></input>
+          </div>
           <input type="submit" value="Update Profile" />
         </form>
       </div>
