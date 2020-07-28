@@ -5,7 +5,7 @@ function LogoutButton() {
   const { isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
 
   const fetchGet = async () => {
-    fetch("/base", {
+    fetch("api/user/me", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await getAccessTokenSilently({

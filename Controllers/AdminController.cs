@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,14 +12,14 @@ namespace ndso_bowling.Controllers
 {
     [ApiController]
     [Authorize(Roles = "Admin")]
-    [Route("[controller]")]
-    public class BaseController : ControllerBase
+    [Route("api/[controller]")]
+    public class AdminController : ControllerBase
     {
 
-        private readonly ILogger<BaseController> _logger;
+        private readonly ILogger<AdminController> _logger;
         private readonly DatabaseConnection _database;
 
-        public BaseController(ILogger<BaseController> logger, DatabaseConnection Database)
+        public AdminController(ILogger<AdminController> logger, DatabaseConnection Database)
         {
             _logger = logger;
             _database = Database;
