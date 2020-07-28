@@ -11,9 +11,7 @@ import Admin from "./Admin";
 const Main = (props) => {
   return (
     <div>
-      <button onClick={() => props.history.push("/myprofile")}>
-        My Profile
-      </button>
+      <button onClick={() => props.history.push("/myprofile")}>My Profile</button>
       <button onClick={() => props.history.push("/logscore")}>Log Score</button>
       <button onClick={() => props.history.push("/myscores")}>My Scores</button>
       <button onClick={() => props.history.push("/admin")}>Admin Portal</button>
