@@ -32,7 +32,7 @@ namespace ndso_bowling
             }).AddJwtBearer(options =>
             {
                 options.Authority = "https://colathro.us.auth0.com/";
-                options.Audience = "https://localhost:5001/";
+                options.Audience = Configuration["Audience"];
             });
 
             services.AddControllers();

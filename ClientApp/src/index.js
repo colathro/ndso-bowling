@@ -8,7 +8,7 @@ ReactDOM.render(
     domain="colathro.us.auth0.com"
     clientId="9c2Os4Hnr81V5AdcQ2hXl9jD7CX0ltfv"
     redirectUri={window.location.origin}
-    audience="https://localhost:5001/"
+    audience={window.location.origin}
   >
     <App />
   </Auth0Provider>,

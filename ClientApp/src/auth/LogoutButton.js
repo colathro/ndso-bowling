@@ -9,7 +9,7 @@ function LogoutButton() {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await getAccessTokenSilently({
-          audience: "https://localhost:5001/",
+          audience: window.location.origin,
         })}`,
       },
     });
