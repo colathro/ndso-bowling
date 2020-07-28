@@ -38,11 +38,13 @@ namespace ndso_bowling.Controllers
 
             var user = this._database.Users.Where(u => u.Id == userId).FirstOrDefault();
 
-            if (user == default)
+            if (user == null)
             {
                 user = new User { Id = userId };
                 this._database.Users.Add(user);
             }
+
+            this._database.SaveChanges();
 
             return Ok(user);
         }

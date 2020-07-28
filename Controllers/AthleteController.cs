@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using ndso_bowling.Database;
 using ndso_bowling.Enums;
@@ -46,32 +47,48 @@ namespace ndso_bowling.Controllers
         {
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var athlete = this._database.Users.FirstOrDefault(u => u.Id == userId).Athlete;
+            var user = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId);
 
-            return Ok(athlete);
+            if (user?.Athlete?.Id == null)
+            {
+                user.Athlete = new Athlete();
+            }
+
+            this._database.SaveChanges();
+
+            return Ok(user.Athlete);
         }
 
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] Athlete athlete)
+        [HttpPut("update")]
+        public IActionResult UpdateAthlete([FromBody] Athlete athlete)
         {
-            athlete.Id = null;
-            this._database.Athletes.Add(athlete);
-
-            return Ok();
-        }
-
-        [HttpPost("registerme")]
-        public IActionResult RegisterMe([FromBody] Athlete athlete)
-        {
-            athlete.Id = null;
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var user = this._database.Users.FirstOrDefault(u => u.Id == userId);
+            var user = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId);
 
-            this._database.Athletes.Add(athlete);
+            if (athlete.Birthday != DateTime.MinValue)
+            {
+                user.Athlete.Birthday = athlete.Birthday;
+            }
+            if (athlete.FirstName != null)
+            {
+                user.Athlete.FirstName = athlete.FirstName;
+            }
+            if (athlete.LastName != null)
+            {
+                user.Athlete.LastName = athlete.LastName;
+            }
+            if (athlete.MiddleName != null)
+            {
+                user.Athlete.MiddleName = athlete.MiddleName;
+            }
+            if (athlete.PhoneNumber != null)
+            {
+                user.Athlete.PhoneNumber = athlete.PhoneNumber;
+            }
 
-            user.Athlete = athlete;
             this._database.SaveChanges();
+
             return Ok();
         }
     }

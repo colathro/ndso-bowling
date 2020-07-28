@@ -44,7 +44,7 @@ namespace ndso_bowling.Controllers
         }
 
         [HttpGet("mygames")]
-        public IActionResult GetGamesMy()
+        public IActionResult GetMyGames()
         {
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
