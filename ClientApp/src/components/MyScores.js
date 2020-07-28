@@ -4,6 +4,8 @@ import { withAuth0 } from "@auth0/auth0-react";
 class MyScores extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { loading: true, scores: null };
   }
 
   async getMyScores() {

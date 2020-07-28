@@ -20,25 +20,5 @@ namespace ndso_bowling.Database
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Athlete>().ToTable("Athletes");
         }
-
-        public User GetUser(string id)
-        {
-            var user = this.Users.Where(u => id == u.Id).FirstOrDefault();
-
-            if (user == default)
-            {
-                user = this.CreateUser(id);
-            }
-
-            return user;
-        }
-
-        public User CreateUser(string id)
-        {
-            User newUser = new User { Id = id };
-            this.Users.Add(newUser);
-            this.SaveChanges();
-            return newUser;
-        }
     }
 }

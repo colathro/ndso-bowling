@@ -5,7 +5,13 @@ class MyProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: true, profile: null, athlete: null };
+    this.state = {
+      loading: true,
+      profile: null,
+      athlete: null,
+      image: null,
+      review: null,
+    };
   }
 
   async componentDidMount() {
