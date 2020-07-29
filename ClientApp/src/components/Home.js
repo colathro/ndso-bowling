@@ -13,13 +13,18 @@ import Button from "./ui/Button";
 
 const Main = (props) => {
   return (
-    <div>
-      <button onClick={() => props.history.push("/profile")}>My Profile</button>
-      <button onClick={() => props.history.push("/logscore")}>Log Score</button>
-      <button onClick={() => props.history.push("/myscores")}>My Scores</button>
-      <button onClick={() => props.history.push("/admin")}>Admin Portal</button>
-      <Button emoji="🥰" onClick={() => console.log("clicked")}>
-        Test Button
+    <div id="home">
+      <Button emoji="😀" onClick={() => props.history.push("/profile")}>
+        My Profile
+      </Button>
+      <Button emoji="📝" onClick={() => props.history.push("/logscore")}>
+        Log Score
+      </Button>
+      <Button emoji="📜" onClick={() => props.history.push("/myscores")}>
+        My Scores
+      </Button>
+      <Button emoji="📱" onClick={() => props.history.push("/admin")}>
+        Admin Portal
       </Button>
       <LogoutButton></LogoutButton>
     </div>

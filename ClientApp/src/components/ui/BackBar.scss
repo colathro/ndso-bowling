@@ -1,0 +1,24 @@
+.backbar-wrapper {
+    display: flex;
+    align-items: center;
+    background: #321160;
+    height: 64px;
+
+    .backbar-button {}
+
+    .backbar-text {
+        font-size: 26px;
+        line-height: 34px;
+        /* identical to box height */
+        font-weight: bold;
+        text-align: center;
+        margin-left: 24px;
+
+        color: #FFFFFF;
+    }
+
+    .button-img {
+        height: 40px;
+        margin-left: 10px;
+    }
+}

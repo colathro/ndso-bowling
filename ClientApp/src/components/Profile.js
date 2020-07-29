@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import * as QueryString from "query-string";
+import BackBar from "./ui/BackBar";
 
 class Profile extends Component {
   constructor(props) {
@@ -231,7 +232,9 @@ class Profile extends Component {
     }
     return (
       <div>
-        <h1>{this.state.registering ? "Register Athlete" : "Edit Profile"}</h1>
+        <BackBar history={this.props.history}>
+          {this.state.registering ? "Register Athlete" : "Edit Profile"}
+        </BackBar>
         <form>
           <div>
             First Name
