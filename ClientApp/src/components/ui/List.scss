@@ -1,0 +1,30 @@
+.list-wrapper {
+
+    table,
+    th,
+    td {
+        border: 1px solid #C8C8C8;
+        border-style: solid;
+        border-collapse: collapse;
+    }
+
+    th {
+        font-weight: 600;
+        font-size: 23px;
+        color: #333333;
+    }
+
+    tr {
+        color: #333333;
+        font-size: 23px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .hover:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

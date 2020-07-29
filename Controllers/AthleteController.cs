@@ -51,7 +51,16 @@ namespace ndso_bowling.Controllers
 
             if (user?.Athlete?.Id == null)
             {
-                user.Athlete = new Athlete();
+                user.Athlete = new Athlete
+                {
+                    FirstName = "",
+                    MiddleName = "",
+                    LastName = "",
+                    Birthday = "",
+                    PhoneNumber = "",
+                    Email = "",
+                    Pin = ""
+                };
             }
 
             this._database.SaveChanges();
