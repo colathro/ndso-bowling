@@ -23,6 +23,10 @@ class LogScore extends Component {
     this.state.game.location = location;
   }
 
+  updateAthlete(athlete) {
+    this.state.athlete = athlete;
+  }
+
   async submitScore() {
     fetch("api/game/submitmygame", {
       method: "POST",
@@ -39,8 +43,24 @@ class LogScore extends Component {
   }
 
   render() {
+    const renderAthleteSelection = ()=>{
+      if(this.props.admin) {
+        return (
+          <div>
+            Athlete
+            <input
+              type="text"
+              onChange={(e) => {
+                this.updateAthlete(e.target.value);
+              }}
+            ></input>
+          </div>
+        );
+      }
+    }
     return (
       <div>
+        {renderAthleteSelection()}
         <div>
           Date
           <input

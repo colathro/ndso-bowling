@@ -3,19 +3,20 @@ import AdminUnreviewedScores from "./AdminUnreviewedScores";
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Switch, Route } from "react-router";
+import Button from "./ui/Button";
 
 const AdminScoresMain = (props) => {
     return (
-    <div>
-      <button onClick={() => props.history.push("/admin/scores/all")}>
+    <div id="menu">
+      <Button emoji="🏁" onClick={() => props.history.push("/admin/scores/all")}>
         View All Scores
-      </button>
-      <button onClick={() => props.history.push("/admin/scores/unreviewed")}>
+      </Button>
+      <Button emoji="✅" onClick={() => props.history.push("/admin/scores/unreviewed")}>
         Scores to Review
-      </button>
-      <button onClick={() => props.history.push("/admin/scores/athlete")}>
+      </Button>
+      <Button emoji="👩‍🦽" onClick={() => props.history.push("/admin/scores/athlete")}>
         View Athlete's Scores
-      </button>
+      </Button>
     </div>
     );
 }

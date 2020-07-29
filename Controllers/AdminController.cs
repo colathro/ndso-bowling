@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using ndso_bowling.Database;
@@ -118,21 +119,21 @@ namespace ndso_bowling.Controllers
         [HttpGet("GameFromAthlete")]
         public IActionResult GetGameFromAthlete(int id)
         {
-            var game = this._database.Games.Where(g => g.Athlete.Id == id);
+            var game = this._database.Games.Include(g => g.Athlete).Where(g => g.Athlete.Id == id);
             return Ok(game);
         }
 
         [HttpGet("AllGames")]
         public IActionResult GetAllGames()
         {
-            var games = this._database.Games.ToList();
+            var games = this._database.Games.Include(g => g.Athlete).ToList();
             return Ok(games);
         }
 
         [HttpGet("UnreviewedGames")]
         public IActionResult GetUnreviewedGames()
         {
-            var games = this._database.Games.Where(g => g.Review == ReviewStatus.NotReviewed).ToList();
+            var games = this._database.Games.Include(g => g.Athlete).Where(g => g.Review == ReviewStatus.NotReviewed).ToList();
             return Ok(games);
         }
 
