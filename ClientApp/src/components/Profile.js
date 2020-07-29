@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import * as QueryString from "query-string";
 import BackBar from "./ui/BackBar";
+import Input from "./ui/Input";
+import SmallButton from "./ui/SmallButton";
 
 class Profile extends Component {
   constructor(props) {
@@ -235,101 +237,102 @@ class Profile extends Component {
         <BackBar history={this.props.history}>
           {this.state.registering ? "Register Athlete" : "Edit Profile"}
         </BackBar>
-        <form>
-          <div>
-            First Name
-            <input
-              disabled={!this.state.editable}
-              type="text"
-              defaultValue={this.state.athlete?.firstName}
-              onChange={(e) => {
-                this.state.athlete.firstName = e.target.value;
-              }}
-            ></input>
+        <div id="profile">
+          <form>
+            <div className="field">
+              <span className="field-title">First Name</span>
+              <Input
+                emoji="😀"
+                disabled={!this.state.editable}
+                type="text"
+                defaultValue={this.state.athlete?.firstName}
+                onChange={(e) => {
+                  this.state.athlete.firstName = e.target.value;
+                }}
+              ></Input>
+            </div>
+            <div className="field">
+              <span className="field-title">Last Name</span>
+              <Input
+                emoji="😀"
+                disabled={!this.state.editable}
+                type="text"
+                defaultValue={this.state.athlete?.lastName}
+                onChange={(e) => {
+                  this.state.athlete.lastName = e.target.value;
+                }}
+              ></Input>
+            </div>
+            <div className="field">
+              <span className="field-title">Birthday</span>
+              <Input
+                emoji="🎊"
+                disabled={!this.state.editable}
+                type="date"
+                defaultValue={this.state.athlete?.birthday}
+                onChange={(e) => {
+                  this.state.athlete.birthday = e.target.value;
+                }}
+              />
+            </div>
+            <div className="field">
+              <span className="field-title">Phone Number</span>
+              <Input
+                emoji="☎"
+                disabled={!this.state.editable}
+                type="text"
+                defaultValue={this.state.athlete?.phoneNumber}
+                onChange={(e) => {
+                  this.state.athlete.phoneNumber = e.target.value;
+                }}
+              ></Input>
+            </div>
+            <div className="field">
+              <span className="field-title">Email</span>
+              <Input
+                emoji="📧"
+                disabled={!this.state.editable}
+                type="email"
+                defaultValue={this.state.athlete?.email}
+                onChange={(e) => {
+                  this.state.athlete.email = e.target.value;
+                }}
+              ></Input>
+            </div>
+          </form>
+          <div className="submit-buttons">
+            {this.state.editable && (
+              <SmallButton
+                emoji="✔"
+                onClick={async () => {
+                  await this.updateProfile();
+                }}
+              >
+                {this.state.registering ? "Register" : "Update Profile"}
+              </SmallButton>
+            )}
+            {this.state.approvalButton && (
+              <div>
+                <SmallButton
+                  emoji="✔"
+                  onClick={() => {
+                    this.approve(this.state.target);
+                  }}
+                >
+                  Approve
+                </SmallButton>
+                <SmallButton
+                  emoji="❌"
+                  onClick={() => {
+                    this.deny(this.state.target);
+                  }}
+                >
+                  Deny
+                </SmallButton>
+              </div>
+            )}
           </div>
-          <div>
-            Middle Name
-            <input
-              disabled={!this.state.editable}
-              type="text"
-              defaultValue={this.state.athlete?.middleName}
-              onChange={(e) => {
-                this.state.athlete.middleName = e.target.value;
-              }}
-            ></input>
-          </div>
-          <div>
-            Last Name
-            <input
-              disabled={!this.state.editable}
-              type="text"
-              defaultValue={this.state.athlete?.lastName}
-              onChange={(e) => {
-                this.state.athlete.lastName = e.target.value;
-              }}
-            ></input>
-          </div>
-          <div>
-            Birthday
-            <input
-              disabled={!this.state.editable}
-              type="date"
-              defaultValue={this.state.athlete?.birthday}
-              onChange={(e) => {
-                this.state.athlete.birthday = e.target.value;
-              }}
-            />
-          </div>
-          <div>
-            Phone Number
-            <input
-              disabled={!this.state.editable}
-              type="text"
-              defaultValue={this.state.athlete?.phoneNumber}
-              onChange={(e) => {
-                this.state.athlete.phoneNumber = e.target.value;
-              }}
-            ></input>
-          </div>
-          <div>
-            Email
-            <input
-              disabled={!this.state.editable}
-              type="email"
-              defaultValue={this.state.athlete?.email}
-              onChange={(e) => {
-                this.state.athlete.email = e.target.value;
-              }}
-            ></input>
-          </div>
-        </form>
-        {this.state.editable && (
-          <button
-            onClick={async () => {
-              await this.updateProfile();
-            }}
-          >
-            {this.state.registering ? "Register" : "Update Profile"}
-          </button>
-        )}
-        {this.state.approvalButton && (
-          <div>
-            <button
-              onClick={() => {
-                this.approve(this.state.target);
-              }}
-            >
-              Approve
-            </button>
-            <button
-              onClick={() => {
-                this.deny(this.state.target);
-              }}
-            >
-              Deny
-            </button>
-          </div>
-        )}
+        </div>
       </div>
     );
   }
