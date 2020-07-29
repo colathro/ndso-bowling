@@ -7,7 +7,7 @@ const Button = (props) => {
     <div className="button-wrapper" onClick={props.onClick}>
       <div className="emoji-aside">
         <div className="emoji-wrapper">
-          <Twemoji options={{ className: "emoji" }}>🏆</Twemoji>
+          <Twemoji options={{ className: "emoji" }}>{props.emoji}</Twemoji>
         </div>
       </div>
       <div className="button-text">{props.children}</div>
