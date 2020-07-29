@@ -5,6 +5,9 @@ class LogScore extends Component {
   constructor(props) {
     super(props);
 
+    if (this.props.admin) {
+    }
+
     this.state = { game: { date: "", score: 0, location: "" } };
   }
 

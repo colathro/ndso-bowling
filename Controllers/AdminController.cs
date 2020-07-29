@@ -24,7 +24,7 @@ namespace ndso_bowling.Controllers
             _logger = logger;
             _database = Database;
         }
-        
+
         [HttpGet("AllAthletes")]
         public IActionResult GetAllAthletes()
         {
@@ -32,11 +32,85 @@ namespace ndso_bowling.Controllers
             return Ok(athletes);
         }
 
-        [HttpPut("ApproveAthlete")]
+        [HttpGet("AllUnapprovedAthletes")]
+        public IActionResult GetAllUnapprovedAthletes()
+        {
+            var athletes = this._database.Athletes.Where(a => a.Approved == ApprovalStatus.Pending).ToList();
+            return Ok(athletes);
+        }
+
+        [HttpGet("Athlete")]
+        public IActionResult GetAthlete(int id)
+        {
+            var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id);
+
+            if (athlete == default)
+            {
+                return NotFound();
+            }
+
+            return Ok(athlete);
+        }
+
+        [HttpPut("Athlete")]
+        public IActionResult UpdateAthlete([FromBody] Athlete athlete)
+        {
+            var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
+
+            if (athlete.Birthday != null)
+            {
+                athleteObject.Birthday = athlete.Birthday;
+            }
+            if (athlete.FirstName != null)
+            {
+                athleteObject.FirstName = athlete.FirstName;
+            }
+            if (athlete.LastName != null)
+            {
+                athleteObject.LastName = athlete.LastName;
+            }
+            if (athlete.MiddleName != null)
+            {
+                athleteObject.MiddleName = athlete.MiddleName;
+            }
+            if (athlete.PhoneNumber != null)
+            {
+                athleteObject.PhoneNumber = athlete.PhoneNumber;
+            }
+            if (athlete.Email != null)
+            {
+                athleteObject.Email = athlete.Email;
+            }
+
+            this._database.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpPost("RegisterAthlete")]
+        public IActionResult RegisterAthlete([FromBody] Athlete athlete)
+        {
+            this._database.Athletes.Add(athlete);
+            this._database.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPost("ApproveAthlete")]
         public IActionResult ApproveAthlete(int id)
         {
             var athlete = this._database.Athletes.Where(a => a.Id == id).FirstOrDefault();
-            athlete.Approved = true;
+            athlete.Approved = ApprovalStatus.Approved;
+            this._database.SaveChanges();
+            return Ok(athlete);
+        }
+
+        [HttpPost("DenyAthlete")]
+        public IActionResult DenyAthlete(int id)
+        {
+            var athlete = this._database.Athletes.Where(a => a.Id == id).FirstOrDefault();
+            athlete.Approved = ApprovalStatus.Denied;
             this._database.SaveChanges();
             return Ok(athlete);
         }
@@ -69,7 +143,7 @@ namespace ndso_bowling.Controllers
             game.Review = ReviewStatus.Reviewed;
             this._database.SaveChanges();
             return Ok(game);
-        }   
+        }
 
         [HttpPut("DenyGame")]
         public IActionResult DenyGame(int id)
@@ -78,6 +152,6 @@ namespace ndso_bowling.Controllers
             game.Review = ReviewStatus.Denied;
             this._database.SaveChanges();
             return Ok(game);
-        }  
+        }
     }
 }

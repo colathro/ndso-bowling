@@ -6,14 +6,11 @@ const Admin = (props) => {
       <button onClick={() => props.history.push("/admin/logscore")}>
         Log Score
       </button>
-      <button onClick={() => props.history.push("/admin/registerathlete")}>
-        Register Athlete
+      <button onClick={() => props.history.push("/admin/athletes")}>
+        Athletes
       </button>
       <button onClick={() => props.history.push("/admin/viewscores")}>
-        View Scores
-      </button>
-      <button onClick={() => props.history.push("/admin/athleteapproval")}>
-        Athlete Approval
+        View/Edit Scores
       </button>
     </div>
   );
