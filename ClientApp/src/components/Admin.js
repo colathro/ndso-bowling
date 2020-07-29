@@ -9,7 +9,7 @@ const Admin = (props) => {
       <button onClick={() => props.history.push("/admin/athletes")}>
         Athletes
       </button>
-      <button onClick={() => props.history.push("/admin/viewscores")}>
+      <button onClick={() => props.history.push("/admin/scores")}>
         View/Edit Scores
       </button>
     </div>
