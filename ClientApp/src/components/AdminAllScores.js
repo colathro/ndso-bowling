@@ -37,8 +37,8 @@ class AdminAllScores extends React.Component {
                     this.state.scores.map((v, i) => {
                         return (
                         <li>
-                            <span>{v.score}</span>|<span>{v.Athlete.FirstName}</span>|
-                            <span>{v.date}</span>|<span>{v.location}</span>
+                            <span>{v.score}</span>|<span>{v.athlete.firstName}</span>|
+                        <span>{v.date}</span>|<span>{v.location}</span>|<span>{v.review}</span>
                         </li>
                         );
                     })}

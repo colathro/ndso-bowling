@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { withAuth0 } from '@auth0/auth0-react';
+import * as QueryString from "query-string";
 
-class AdminUnreviewedScores extends React.Component {
+class AdminScoresByAthlete extends React.Component {
     constructor(props) {
         super(props);
         this.state = {loading: true, scores: null};
+
+        const params = QueryString.parse(props.location.search);
+
     }
 
     async componentDidMount() {
-        this.getUnreviewedScores();
+        this.getScoresByAthlete();
     }
 
-    async getUnreviewedScores() {
-        fetch("api/admin/UnreviewedGames", {
+    async getScoresByAthlete() {
+        fetch(`api/admin/GameFromAthlete?id=${params.id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
@@ -30,14 +34,14 @@ class AdminUnreviewedScores extends React.Component {
     render() {
         return (
           <div>
-            Scores Not Yet Reviewed
-              <div>
+            Get Scores For Athlete
+            <div>
                 <ul>
                   {!this.state.loading &&
                     this.state.scores.map((v, i) => {
                         return (
                             <li>
-                                <span>{v.score}</span>|<span>{v.athlete ? v.athlete.firstName : ""}</span>|
+                                <span>{v.score}</span>|<span>{v.athlete.firstName}</span>|
                             <span>{v.date}</span>|<span>{v.location}</span>|<span>{v.review}</span>
                             </li>
                             );

@@ -15,7 +15,7 @@ import Button from "./ui/Button";
 
 const Main = (props) => {
   return (
-    <div id="home">
+    <div id="menu">
       <Button emoji="😀" onClick={() => props.history.push("/profile")}>
         My Profile
       </Button>
