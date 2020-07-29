@@ -1,0 +1,35 @@
+.button-wrapper {
+    display: flex;
+    width: 335px;
+    height: 120px;
+    background: #ffffff;
+    border: 1px solid #c8c8c8;
+    box-sizing: border-box;
+    border-radius: 2px;
+
+    .emoji-aside {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #321160;
+        width: 99px;
+        border-radius: 2px 0px 0px 2px;
+
+        .emoji-wrapper {
+            .emoji {
+                margin: auto;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    }
+
+    .button-text {
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+
+        font-weight: bold;
+        font-size: 20px;
+    }
+}
