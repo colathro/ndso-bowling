@@ -4,7 +4,7 @@ import History from "./utils/History";
 import Home from "./components/Home";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import "./App.css";
+import "./App.scss";
 
 const App = () => {
   const { isLoading, error } = useAuth0();

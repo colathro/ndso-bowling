@@ -11,6 +11,7 @@ import AdminAthletes from "./AdminAthletes";
 import AdminLogScore from "./AdminLogScore";
 import AdminScores from "./AdminScores";
 
+import Button from "./ui/Button";
 
 const Main = (props) => {
   return (
@@ -19,6 +20,10 @@ const Main = (props) => {
       <button onClick={() => props.history.push("/logscore")}>Log Score</button>
       <button onClick={() => props.history.push("/myscores")}>My Scores</button>
       <button onClick={() => props.history.push("/admin")}>Admin Portal</button>
+      <Button emoji="🥰" onClick={() => console.log("clicked")}>
+        Test Button
+      </Button>
+      <LogoutButton></LogoutButton>
     </div>
   );
 };
