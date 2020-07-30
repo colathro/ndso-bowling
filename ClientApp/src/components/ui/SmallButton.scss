@@ -5,6 +5,7 @@
     width: 170px;
     height: 52px;
     border: 1px solid #321160;
+    background-color: #ffffff;
     box-sizing: border-box;
     border-radius: 5px;
     margin: 5px;
@@ -26,4 +27,9 @@
 
 .purple {
     background-color: #321160;
+
+    .button-text {
+        color: #ffffff;
+    }
+    
 }

@@ -8,7 +8,7 @@ function LogoutButton() {
   return (
     isAuthenticated && (
       <Button
-        emoji="🏃‍♀️"
+        emoji="👋"
         onClick={() => {
           logout({ returnTo: window.location.origin });
         }}

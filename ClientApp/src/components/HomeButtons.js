@@ -57,7 +57,7 @@ class HomeButtons extends Component {
           My Scores
         </Button>
         {this.state.enableAdmin && (
-          <Button emoji="📱" onClick={() => this.props.history.push("/admin")}>
+          <Button emoji="💻" onClick={() => this.props.history.push("/admin")}>
             Admin Portal
           </Button>
         )}

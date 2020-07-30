@@ -11,7 +11,7 @@ import Button from "./ui/Button";
 const AdminAthleteMain = (props) => {
   return (
     <div>
-      <BackBar history={props.history}>Athlete Admin.</BackBar>
+      <BackBar history={props.history}>Athlete Actions</BackBar>
       <div id="menu">
         <Button
           emoji="🧗‍♂️"
