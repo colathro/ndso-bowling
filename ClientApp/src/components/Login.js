@@ -9,9 +9,9 @@ const Login = () => {
   return (
     <div id="login">
       <div className="title-emoji">
-        <Twemoji options={{ className: "emoji" }}>🏆</Twemoji>
+        <img src="/images/razzledazzle.svg"></img>
       </div>
-      <div className="text-wrapper">Special Olympics ND</div>
+      <div className="text-wrapper">Special Olympics ND Bowling</div>
       <div>
         <SmallButton emoji="🏃‍♂️" onClick={() => loginWithRedirect()}>
           Login
