@@ -51,7 +51,7 @@ namespace ndso_bowling.Controllers
 
             var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
 
-            var games = this._database.Games.Where(a => a.Athlete == athlete).ToList();
+            var games = this._database.Games.Where(a => a.Athlete == athlete).OrderByDescending(g => g.Date).ToList();
             return Ok(games);
         }
 
