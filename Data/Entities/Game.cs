@@ -13,5 +13,6 @@ namespace ndso_bowling.Database
         public byte[] ScoreImage { get; set; }
         public Athlete Athlete { get; set; }
         public ReviewStatus Review { get; set; }
+        public string Witness { get; set; }
     }
 }

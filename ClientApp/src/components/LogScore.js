@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
+import Input from "./ui/Input";
+import BackBar from "./ui/BackBar";
+import SmallButton from "./ui/SmallButton";
 
 class LogScore extends Component {
   constructor(props) {
@@ -8,7 +11,7 @@ class LogScore extends Component {
     if (this.props.admin) {
     }
 
-    this.state = { game: { date: "", score: 0, location: "" } };
+    this.state = { game: { date: "", score: 0, location: "", witness: "" } };
   }
 
   updateDate(date) {
@@ -25,6 +28,10 @@ class LogScore extends Component {
 
   updateAthlete(athlete) {
     this.state.athlete = athlete;
+  }
+
+  updateWitness(witness) {
+    this.state.witness = witness;
   }
 
   async submitScore() {
@@ -60,41 +67,73 @@ class LogScore extends Component {
     }
     return (
       <div>
+        <BackBar history={this.props.history}>Log Score </BackBar>
         {renderAthleteSelection()}
-        <div>
-          Date
-          <input
-            type="date"
-            onChange={(e) => {
-              this.updateDate(e.target.value);
-            }}
-          ></input>
+        <div id="input-fields">
+          <form>
+            <div className="field">
+              <span classname="field-title">Date</span>
+              <Input
+                emoji="📅"
+                type="date"
+                onChange={(e) => {
+                  this.updateDate(e.target.value);
+                }}
+                defaultValue={this.state.game?.date}
+              ></Input>
+            </div>
+            <div className="field">
+            <span classname="field-title">Location</span>
+              <Input
+                emoji="🌐"
+                type="text"
+                onChange={(e) => {
+                  this.updateLocation(e.target.value);
+                }}
+                defaultValue={this.state.game?.location}
+              ></Input>
+            </div>
+            <div className="field">
+            <span classname="field-title">Game Score (0 - 300)</span>
+              <Input
+                emoji="🎳"
+                type="number"
+                onChange={(e) => {
+                  this.updateScore(parseInt(e.target.value));
+                }}
+                defaultValue={this.state.game?.score}
+              ></Input>
+            </div>
+            <div className="field">
+            <span classname="field-title">Witness</span>
+              <Input
+                emoji="😀"
+                type="text"
+                onChange={(e) => {
+                  this.updateWitness(e.target.value);
+                }}
+                defaultValue={this.state.game?.witness}
+              ></Input>
+            </div>
+          </form>
+          <div className="submit-buttons">
+            <div style={{ display: "flex" }}>
+              <SmallButton
+                emoji="❌"
+                onClick={async () => {
+                  this.props.history.goBack();
+                }}
+              ></SmallButton>
+              <SmallButton
+                emoji="✅"
+                primary={true}
+                onClick={() => {
+                  this.submitScore();
+                }}
+              ></SmallButton>
+            </div>
+          </div>
         </div>
-        <div>
-          Location
-          <input
-            type="text"
-            onChange={(e) => {
-              this.updateLocation(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div>
-          Game Score (0 - 300)
-          <input
-            type="number"
-            onChange={(e) => {
-              this.updateScore(parseInt(e.target.value));
-            }}
-          ></input>
-        </div>
-        <button
-          onClick={() => {
-            this.submitScore();
-          }}
-        >
-          Submit Score
-        </button>
       </div>
     );
   }

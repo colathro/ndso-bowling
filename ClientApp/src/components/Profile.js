@@ -237,7 +237,7 @@ class Profile extends Component {
         <BackBar history={this.props.history}>
           {this.state.registering ? "Register Athlete" : "Edit Profile"}
         </BackBar>
-        <div id="profile">
+        <div id="input-fields">
           <form>
             <div className="field">
               <span className="field-title">First Name</span>

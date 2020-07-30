@@ -7,6 +7,7 @@ import LogScore from "./LogScore";
 import MyScores from "./MyScores";
 import Admin from "./Admin";
 import AdminAthletes from "./AdminAthletes";
+import AdminExports from "./AdminExports";
 import AdminLogScore from "./AdminLogScore";
 import AdminScores from "./AdminScores";
 import HomeButtons from "./HomeButtons";
@@ -29,6 +30,7 @@ const Home = (props) => {
         <Route path="/admin/athlete*" exact component={AdminAthletes} />
         <Route path="/admin/scores*" exact component={AdminScores} />
         <Route path="/admin/logscore" exact component={AdminLogScore} />
+        <Route path="/admin/exports" exact component={AdminExports} />
       </Switch>
     </div>
   );
