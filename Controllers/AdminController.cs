@@ -65,9 +65,17 @@ namespace ndso_bowling.Controllers
         }
 
         [HttpGet("AllAthletes")]
-        public IActionResult GetAllAthletes()
+        public IActionResult GetAllAthletes(District district)
         {
-            var athletes = this._database.Athletes.ToList();
+            List<Athlete> athletes;
+            if (district > District.None)
+            {
+                athletes = this._database.Athletes.OrderBy(a => a.FirstName).Where(a => a.District == district).ToList();
+            }
+            else
+            {
+                athletes = this._database.Athletes.OrderBy(a => a.FirstName).ToList();
+            }
             return Ok(athletes);
         }
 
