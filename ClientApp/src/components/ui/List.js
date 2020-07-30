@@ -31,7 +31,9 @@ const List = (props) => {
             <tr
               className="hover"
               onClick={() => {
-                props.onClick.method(v[props.onClick.field]);
+                if (props.onClick) {
+                  props.onClick.method(v[props.onClick.field]);
+                }
               }}
             >
               {props.fields.map((fv, fi) => {

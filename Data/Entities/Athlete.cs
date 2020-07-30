@@ -16,5 +16,6 @@ namespace ndso_bowling.Database
         public string Email { get; set; }
         public string Pin { get; set; }
         public ApprovalStatus Approved { get; set; }
+        public District District { get; set; }
     }
 }

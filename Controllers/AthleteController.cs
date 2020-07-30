@@ -59,7 +59,8 @@ namespace ndso_bowling.Controllers
                     Birthday = "",
                     PhoneNumber = "",
                     Email = "",
-                    Pin = ""
+                    Pin = "",
+                    District = District.None
                 };
             }
 
@@ -98,6 +99,10 @@ namespace ndso_bowling.Controllers
             if (athlete.Email != null)
             {
                 user.Athlete.Email = athlete.Email;
+            }
+            if (athlete.District >= 0)
+            {
+                user.Athlete.District = athlete.District;
             }
 
             this._database.SaveChanges();

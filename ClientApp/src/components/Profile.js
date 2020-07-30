@@ -4,6 +4,7 @@ import * as QueryString from "query-string";
 import BackBar from "./ui/BackBar";
 import Input from "./ui/Input";
 import SmallButton from "./ui/SmallButton";
+import Select from "./ui/Select";
 
 class Profile extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Profile extends Component {
         birthday: "",
         phoneNumber: "",
         email: "",
+        district: "0",
       };
     }
 
@@ -286,6 +288,62 @@ class Profile extends Component {
                   this.state.athlete.phoneNumber = e.target.value;
                 }}
               ></Input>
+            </div>
+            <div className="field">
+              <span className="field-title">District</span>
+              <Select
+                emoji="🗺"
+                disabled={!this.state.editable}
+                onChange={(e) => {
+                  this.state.athlete.district = parseInt(e.target.value);
+                }}
+              >
+                <option value={0} selected={this.state.athlete?.district == 0}>
+                  None
+                </option>
+                <option value={1} selected={this.state.athlete?.district == 1}>
+                  Williston - 1
+                </option>
+                <option value={2} selected={this.state.athlete?.district == 2}>
+                  Minot - 2
+                </option>
+                <option value={3} selected={this.state.athlete?.district == 3}>
+                  Devils Lake - 3
+                </option>
+                <option value={5} selected={this.state.athlete?.district == 5}>
+                  Grand Forks - 5
+                </option>
+                <option value={6} selected={this.state.athlete?.district == 6}>
+                  Fargo - 6
+                </option>
+                <option value={7} selected={this.state.athlete?.district == 7}>
+                  Wahpteon - 7
+                </option>
+                <option value={8} selected={this.state.athlete?.district == 8}>
+                  Valley City - 8
+                </option>
+                <option value={9} selected={this.state.athlete?.district == 9}>
+                  Jamestown - 9
+                </option>
+                <option
+                  value={10}
+                  selected={this.state.athlete?.district == 10}
+                >
+                  Bismarck - 10
+                </option>
+                <option
+                  value={11}
+                  selected={this.state.athlete?.district == 11}
+                >
+                  Mandan - 11
+                </option>
+                <option
+                  value={12}
+                  selected={this.state.athlete?.district == 12}
+                >
+                  Dickinson - 12
+                </option>
+              </Select>
             </div>
             <div className="field">
               <span className="field-title">Email</span>

@@ -22,6 +22,26 @@ class HomeButtons extends Component {
         this.setState({ enableAdmin: true });
       }
     });
+
+    fetch("api/user/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+      },
+    }).then(async () => {
+      fetch("api/athlete/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently(
+            {
+              audience: window.location.origin,
+            }
+          )}`,
+        },
+      });
+    });
   }
 
   render() {
