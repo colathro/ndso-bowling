@@ -14,6 +14,12 @@ const Admin = (props) => {
           >
             Athletes
           </Button>
+          <Button
+            emoji="💾"
+            onClick={() => props.history.push("/admin/dataexport")}
+          >
+            Export Data
+          </Button>
         </div>
       </div>
     </div>

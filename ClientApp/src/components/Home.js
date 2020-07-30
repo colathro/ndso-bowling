@@ -29,6 +29,7 @@ const Home = (props) => {
         <Route path="/admin/athlete*" exact component={AdminAthletes} />
         <Route path="/admin/scores*" exact component={AdminScores} />
         <Route path="/admin/logscore" exact component={AdminLogScore} />
+        <Route path="/admin/dataexport" exact component={AdminLogScore} />
       </Switch>
     </div>
   );
