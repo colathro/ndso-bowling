@@ -126,6 +126,10 @@ namespace ndso_bowling.Controllers
             {
                 athleteObject.Email = athlete.Email;
             }
+            if (athlete.District >= 0)
+            {
+                athleteObject.District = athlete.District;
+            }
 
             this._database.SaveChanges();
 

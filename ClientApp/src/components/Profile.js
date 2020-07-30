@@ -30,7 +30,7 @@ class Profile extends Component {
         birthday: "",
         phoneNumber: "",
         email: "",
-        district: "0",
+        district: 0,
       };
     }
 
