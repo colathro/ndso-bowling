@@ -12,7 +12,7 @@ const AdminAthleteMain = (props) => {
   return (
     <div>
       <BackBar history={props.history}>Athlete Admin.</BackBar>
-      <div id="admin-athletes">
+      <div id="menu">
         <Button
           emoji="🧗‍♂️"
           onClick={() => props.history.push("/admin/athletes/register")}
