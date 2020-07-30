@@ -397,6 +397,24 @@ class Profile extends Component {
                 </SmallButton>
               </div>
             )}
+            {this.state.updating && (
+              <div style={{ display: "flex" }}>
+                <SmallButton
+                  onClick={() =>
+                    this.props.history.push(`/admin/athletes/scoresbyathlete?id=${this.state.target}`)
+                  }
+                >
+                  View Scores
+                </SmallButton>
+                <SmallButton
+                  onClick={() => {
+                    // build out logging a score on behalf of a user
+                  }}
+                >
+                  Log New Score
+                </SmallButton>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import AdminRegisterAthlete from "./AdminRegisterAthlete";
 import AdminAthlete from "./AdminAthlete";
 import BackBar from "./ui/BackBar";
 import Button from "./ui/Button";
+import AdminScoresByAthlete from "./AdminScoresByAthlete";
 
 const AdminAthleteMain = (props) => {
   return (
@@ -64,6 +65,7 @@ class AdminAthletes extends Component {
             exact
             component={AdminAthleteApprovals}
           />
+          <Route path="/admin/athletes/scoresbyathlete*" exact component={AdminScoresByAthlete}/>
           <Route path="/admin/athletes" exact component={AdminAthleteMain} />
           <Route path="/admin/athlete" exact component={AdminAthlete} />
         </Switch>
