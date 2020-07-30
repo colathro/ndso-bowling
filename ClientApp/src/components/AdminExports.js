@@ -10,7 +10,7 @@ class AdminExports extends Component {
     render() {
         return (
             <div>
-            <BackBar history={this.props.history}>Export Data</BackBar>
+            <BackBar history={this.props.history}>Export Data as CSV</BackBar>
             <div id="menu">
                 <Button emoji="💯" onClick={async () => fetch("api/admin/GetScoreReport", {
                         method: "GET",
@@ -28,7 +28,7 @@ class AdminExports extends Component {
                         a.click();
                     })})
                     }>
-                    Download All Scores (scores.csv)
+                    All Scores
                 </Button>
                 <Button emoji="👟" onClick={async () => fetch("api/admin/GetAthleteReport", {
                         method: "GET",
@@ -46,7 +46,7 @@ class AdminExports extends Component {
                         a.click();
                     })})
                     }>
-                    Download All Athletes (athletes.csv)
+                    All Athletes
                 </Button>
             </div>
             </div>

@@ -319,15 +319,7 @@ class Profile extends Component {
               </div>
             )}
             {this.state.approvalButton && (
-              <div>
-                <SmallButton
-                  emoji="✔"
-                  onClick={() => {
-                    this.approve(this.state.target);
-                  }}
-                >
-                  Approve
-                </SmallButton>
+              <div style={{ display: "flex" }}>
                 <SmallButton
                   emoji="❌"
                   onClick={() => {
@@ -335,6 +327,15 @@ class Profile extends Component {
                   }}
                 >
                   Deny
+                </SmallButton>
+                <SmallButton
+                  emoji="✅"
+                  primary={true}
+                  onClick={() => {
+                    this.approve(this.state.target);
+                  }}
+                >
+                  Approve
                 </SmallButton>
               </div>
             )}
