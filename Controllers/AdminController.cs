@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using ndso_bowling.Database;
 using ndso_bowling.Enums;
+
 
 namespace ndso_bowling.Controllers
 {
@@ -19,6 +21,39 @@ namespace ndso_bowling.Controllers
 
         private readonly ILogger<AdminController> _logger;
         private readonly DatabaseConnection _database;
+
+        private string r(string s) { // r for remove semicolons
+            if (s == null) { return "";}
+            return s.Replace(';', ' ');
+        }
+
+        [HttpGet("GetScoreReport")]
+        public IActionResult DownloadScoresReport()
+        {
+            var games = this._database.Games.Include(g => g.Athlete).ToList();
+
+            string csv = "Id;Score;Location;Date;AthleteId" + Environment.NewLine;
+
+            foreach(Game g in games) {
+                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete.Id.ToString())}" + Environment.NewLine;
+            }
+
+            return Ok(csv);
+        }
+
+       [HttpGet("GetAthleteReport")]
+        public IActionResult DownloadAthleteReport()
+        {
+            var athletes = this._database.Athletes.ToList();
+
+            string csv = "Id;FirstName;MiddleName;LastName;Birthday;PhoneNumber;Email;ApprovalStatus" + Environment.NewLine;
+
+            foreach(Athlete a in athletes) {
+                csv += $"{r(a.Id.ToString())};{r(a.FirstName)};{r(a.MiddleName)};{r(a.LastName)};{r(a.Birthday)};{r(a.PhoneNumber.ToString())};{r(a.Email)};{r(a.Approved.ToString())}" + Environment.NewLine;
+            }
+
+            return Ok(csv);
+        }
 
         public AdminController(ILogger<AdminController> logger, DatabaseConnection Database)
         {
