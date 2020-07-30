@@ -1,8 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./Login";
 import { Router, Switch, Route } from "react-router";
-import LogoutButton from "../auth/LogoutButton";
 import Profile from "./Profile";
 import LogScore from "./LogScore";
 import MyScores from "./MyScores";
@@ -10,28 +9,7 @@ import Admin from "./Admin";
 import AdminAthletes from "./AdminAthletes";
 import AdminLogScore from "./AdminLogScore";
 import AdminScores from "./AdminScores";
-
-import Button from "./ui/Button";
-
-const Main = (props) => {
-  return (
-    <div id="menu">
-      <Button emoji="😀" onClick={() => props.history.push("/profile")}>
-        My Profile
-      </Button>
-      <Button emoji="📝" onClick={() => props.history.push("/logscore")}>
-        Log Score
-      </Button>
-      <Button emoji="📜" onClick={() => props.history.push("/myscores")}>
-        My Scores
-      </Button>
-      <Button emoji="📱" onClick={() => props.history.push("/admin")}>
-        Admin Portal
-      </Button>
-      <LogoutButton></LogoutButton>
-    </div>
-  );
-};
+import HomeButtons from "./HomeButtons";
 
 const Home = (props) => {
   const { isAuthenticated } = useAuth0();
@@ -43,7 +21,7 @@ const Home = (props) => {
   return (
     <div>
       <Switch>
-        <Route path="/" exact component={Main} />
+        <Route path="/" exact component={HomeButtons} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/logscore" exact component={LogScore} />
         <Route path="/myscores" exact component={MyScores} />

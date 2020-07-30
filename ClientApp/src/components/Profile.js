@@ -302,14 +302,21 @@ class Profile extends Component {
           </form>
           <div className="submit-buttons">
             {this.state.editable && (
-              <SmallButton
-                emoji="✔"
-                onClick={async () => {
-                  await this.updateProfile();
-                }}
-              >
-                {this.state.registering ? "Register" : "Update Profile"}
-              </SmallButton>
+              <div style={{ display: "flex" }}>
+                <SmallButton
+                  emoji="❌"
+                  onClick={async () => {
+                    this.props.history.goBack();
+                  }}
+                ></SmallButton>
+                <SmallButton
+                  emoji="✅"
+                  primary={true}
+                  onClick={async () => {
+                    await this.updateProfile();
+                  }}
+                ></SmallButton>
+              </div>
             )}
             {this.state.approvalButton && (
               <div>

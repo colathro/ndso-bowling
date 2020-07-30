@@ -5,21 +5,33 @@ import AdminAthleteApprovals from "./AdminAthleteApprovals";
 import AdminAllAthletes from "./AdminAllAthletes";
 import AdminRegisterAthlete from "./AdminRegisterAthlete";
 import AdminAthlete from "./AdminAthlete";
+import BackBar from "./ui/BackBar";
+import Button from "./ui/Button";
 
 const AdminAthleteMain = (props) => {
   return (
     <div>
-      <button onClick={() => props.history.push("/admin/athletes/register")}>
-        Register Athlete
-      </button>
-      <button onClick={() => props.history.push("/admin/athletes/allathletes")}>
-        All Athletes
-      </button>
-      <button
-        onClick={() => props.history.push("/admin/athletes/athleteapprovals")}
-      >
-        Athlete Approvals
-      </button>
+      <BackBar history={props.history}>Athlete Admin.</BackBar>
+      <div id="admin-athletes">
+        <Button
+          emoji="🧗‍♂️"
+          onClick={() => props.history.push("/admin/athletes/register")}
+        >
+          Register Athlete
+        </Button>
+        <Button
+          emoji="🚴‍♂️"
+          onClick={() => props.history.push("/admin/athletes/allathletes")}
+        >
+          All Athletes
+        </Button>
+        <Button
+          emoji="🏋️‍♀️"
+          onClick={() => props.history.push("/admin/athletes/athleteapprovals")}
+        >
+          Athlete Approvals
+        </Button>
+      </div>
     </div>
   );
 };

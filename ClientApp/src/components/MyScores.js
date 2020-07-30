@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
+import BackBar from "./ui/BackBar";
+import List from "./ui/List";
 
 class MyScores extends Component {
   constructor(props) {
     super(props);
 
     this.state = { loading: true, scores: null };
+
+    this.fields = [
+      { id: 0, name: "Score", emoji: "🎳", field: "score" },
+      { id: 2, name: "Date", emoji: "📅", field: "date" },
+    ];
   }
 
   async componentDidMount() {
@@ -33,19 +40,11 @@ class MyScores extends Component {
   render() {
     return (
       <div>
-        My Scores
+        <BackBar history={this.props.history}>My Scores</BackBar>
         <div>
-          <ul>
-            {!this.state.loading &&
-              this.state.scores.map((v, i) => {
-                return (
-                  <li>
-                    <span>{v.score}</span>|<span>{v.date}</span>|
-                    <span>{v.location}</span>
-                  </li>
-                );
-              })}
-          </ul>
+          {!this.state.loading && (
+            <List items={this.state.scores} fields={this.fields}></List>
+          )}
         </div>
       </div>
     );

@@ -16,7 +16,12 @@ const List = (props) => {
           {props.fields.map((v, i) => {
             return (
               <th className="column" key="v.id">
-                {v.name}
+                <div className="header-container">
+                  {v.name}
+                  <Twemoji options={{ className: "twemoji" }}>
+                    {v.emoji}
+                  </Twemoji>
+                </div>
               </th>
             );
           })}

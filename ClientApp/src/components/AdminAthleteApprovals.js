@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Router, Switch, Route } from "react-router";
+import BackBar from "./ui/BackBar";
+import List from "./ui/List";
 
 class AdminAthleteApprovals extends Component {
   constructor(props) {
     super(props);
 
     this.state = { loading: true, athletes: null };
+    this.fields = [
+      { id: 0, name: "ID", emoji: "", field: "id" },
+      { id: 1, name: "First Name", emoji: "", field: "firstName" },
+      { id: 2, name: "Last Name", emoji: "", field: "lastName" },
+    ];
   }
 
   async componentDidMount() {
@@ -38,27 +45,18 @@ class AdminAthleteApprovals extends Component {
   render() {
     return (
       <div>
-        Approvals
+        <BackBar history={this.props.history}>Athete Approvals</BackBar>
         <div>
-          <ul>
-            {!this.state.loading &&
-              this.state.athletes.map((v, i) => {
-                return (
-                  <li>
-                    <span>{v.id}</span>
-                    <span>
-                      <a
-                        onClick={() => {
-                          this.navigateToAthlete(v.id);
-                        }}
-                      >
-                        {v.firstName + " " + v.lastName}
-                      </a>
-                    </span>
-                  </li>
-                );
-              })}
-          </ul>
+          {!this.state.loading && (
+            <List
+              items={this.state.athletes}
+              fields={this.fields}
+              onClick={{
+                method: this.navigateToAthlete.bind(this),
+                field: "id",
+              }}
+            ></List>
+          )}
         </div>
       </div>
     );

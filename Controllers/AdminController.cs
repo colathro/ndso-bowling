@@ -22,8 +22,9 @@ namespace ndso_bowling.Controllers
         private readonly ILogger<AdminController> _logger;
         private readonly DatabaseConnection _database;
 
-        private string r(string s) { // r for remove semicolons
-            if (s == null) { return "";}
+        private string r(string s)
+        { // r for remove semicolons
+            if (s == null) { return ""; }
             return s.Replace(';', ' ');
         }
 
@@ -34,21 +35,23 @@ namespace ndso_bowling.Controllers
 
             string csv = "Id;Score;Location;Date;AthleteId" + Environment.NewLine;
 
-            foreach(Game g in games) {
+            foreach (Game g in games)
+            {
                 csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete.Id.ToString())}" + Environment.NewLine;
             }
 
             return Ok(csv);
         }
 
-       [HttpGet("GetAthleteReport")]
+        [HttpGet("GetAthleteReport")]
         public IActionResult DownloadAthleteReport()
         {
             var athletes = this._database.Athletes.ToList();
 
             string csv = "Id;FirstName;MiddleName;LastName;Birthday;PhoneNumber;Email;ApprovalStatus" + Environment.NewLine;
 
-            foreach(Athlete a in athletes) {
+            foreach (Athlete a in athletes)
+            {
                 csv += $"{r(a.Id.ToString())};{r(a.FirstName)};{r(a.MiddleName)};{r(a.LastName)};{r(a.Birthday)};{r(a.PhoneNumber.ToString())};{r(a.Email)};{r(a.Approved.ToString())}" + Environment.NewLine;
             }
 
@@ -86,6 +89,12 @@ namespace ndso_bowling.Controllers
             }
 
             return Ok(athlete);
+        }
+
+        [HttpGet("amiadmin")]
+        public IActionResult AmIAdmin()
+        {
+            return Ok();
         }
 
         [HttpPut("Athlete")]
