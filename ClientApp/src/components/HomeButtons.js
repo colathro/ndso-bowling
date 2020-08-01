@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../auth/LogoutButton";
 import Button from "./ui/Button";
+import { showError } from "./ui/Modal";
 
 class HomeButtons extends Component {
   constructor(props) {

@@ -1,69 +1,72 @@
 html {
-    font-family: 'IBM Plex Sans', sans-serif;
-    color: #333333;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #333333;
 }
 
 body {
-    margin: 0px;
+  margin: 0px;
 }
 
 #root {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 #login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #321160;
-    padding: 8px;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #321160;
+  padding: 8px;
+  height: 100vh;
 
-    .title-emoji {
-        margin-bottom: 30px;
-    }
+  .title-emoji {
+    margin-bottom: 30px;
+  }
 
-    .text-wrapper {
-        font-size: 26px;
-        line-height: 34px;
-        /* identical to box height */
-        font-weight: bold;
-        text-align: center;
+  .text-wrapper {
+    font-size: 26px;
+    line-height: 34px;
+    /* identical to box height */
+    font-weight: bold;
+    text-align: center;
 
-        color: #FFFFFF;
-        margin-bottom: 72px;
-    }
+    color: #ffffff;
+    margin-bottom: 72px;
+  }
 }
 
 #menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2em;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100vw;
 }
 
 #input-fields {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
 
-    .field {
-        margin-top: 7px;
-        margin-bottom: 7px;
-    }
+  .field {
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
 
-    .field-title {
-        font-weight: 600;
-        font-size: 14px;
-        color: #333333;
-        padding: 5px;
-        margin-bottom: 5px;
-    }
+  .field-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333333;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
 
-    .submit-buttons {
-        margin-top: 3em;
-    }
+  .submit-buttons {
+    margin-top: 3em;
+  }
 }
