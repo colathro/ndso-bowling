@@ -10,9 +10,12 @@ import AdminAthletes from "./AdminAthletes";
 import AdminExports from "./AdminExports";
 import AdminLogScore from "./AdminLogScore";
 import HomeButtons from "./HomeButtons";
+import DataAccess from "../utils/DataAccess";
 
 const Home = (props) => {
   const { isAuthenticated } = useAuth0();
+
+  console.log(DataAccess);
 
   if (!isAuthenticated) {
     return <Login></Login>;

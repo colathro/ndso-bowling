@@ -2,28 +2,37 @@ import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router";
 import History from "./utils/History";
 import Home from "./components/Home";
-import { useAuth0 } from "@auth0/auth0-react";
+import { withAuth0 } from "@auth0/auth0-react";
+import DataAccess from "./utils/DataAccess";
 
 import "./App.scss";
 
-const App = () => {
-  const { isLoading, error } = useAuth0();
-
-  if (error) {
-    return <div>Oops... {error.message}</div>;
+class App extends Component {
+  constructor(props) {
+    super(props);
   }
 
-  if (isLoading) {
-    return <div></div>;
+  componentDidMount() {
+    DataAccess.Auth = this.props.auth0;
   }
 
-  return (
-    <Router history={History}>
-      <Switch>
-        <Route path="*" exact component={Home} />
-      </Switch>
-    </Router>
-  );
-};
+  render() {
+    if (this.props.auth0.error) {
+      return <div>Oops... {this.props.auth0.error.message}</div>;
+    }
 
-export default App;
+    if (this.props.auth0.isLoading) {
+      return <div></div>;
+    }
+
+    return (
+      <Router history={History}>
+        <Switch>
+          <Route path="*" exact component={Home} />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+export default withAuth0(App);
