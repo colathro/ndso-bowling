@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../auth/LogoutButton";
 import Button from "./ui/Button";
-import { showError } from "./ui/Modal";
+import DataAccess from "../utils/DataAccess";
 
 class HomeButtons extends Component {
   constructor(props) {
@@ -11,37 +11,12 @@ class HomeButtons extends Component {
   }
 
   async componentDidMount() {
-    fetch("api/admin/amiadmin", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    }).then(async (response) => {
-      if (response.status == 200) {
-        this.setState({ enableAdmin: true });
-      }
+    DataAccess.getNoData("api/admin/amiadmin", () => {
+      this.setState({ enableAdmin: true });
     });
 
-    fetch("api/user/me", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    }).then(async () => {
-      fetch("api/athlete/me", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently(
-            {
-              audience: window.location.origin,
-            }
-          )}`,
-        },
-      });
+    DataAccess.getData("api/user/me", () => {
+      DataAccess.getData("api/athlete/me", () => {});
     });
   }
 

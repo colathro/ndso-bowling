@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withAuth0 } from "@auth0/auth0-react";
+import DataAccess from "../utils/DataAccess";
 import Input from "./ui/Input";
 import BackBar from "./ui/BackBar";
 import SmallButton from "./ui/SmallButton";
@@ -7,23 +7,32 @@ import SmallButton from "./ui/SmallButton";
 class LogScore extends Component {
   constructor(props) {
     super(props);
-
-    if (this.props.admin) {
-    }
-
-    this.state = { game: { date: "", score: 0, location: "", witness: "" } };
+    this.state = {
+      game: {
+        date: { value: "", inError: false },
+        score: { value: 0, inError: false },
+        location: { value: "", inError: false },
+        witness: { value: "", inError: false },
+      },
+    };
   }
 
   updateDate(date) {
-    this.state.game.date = date;
+    this.state.game.date.value = date;
+    this.state.game.date.inError = false;
+    this.setState({ game: this.state.game });
   }
 
   updateScore(score) {
-    this.state.game.score = score;
+    this.state.game.score.value = parseInt(score);
+    this.state.game.score.inError = false;
+    this.setState({ game: this.state.game });
   }
 
   updateLocation(location) {
-    this.state.game.location = location;
+    this.state.game.location.value = location;
+    this.state.game.location.inError = false;
+    this.setState({ game: this.state.game });
   }
 
   updateAthlete(athlete) {
@@ -31,27 +40,51 @@ class LogScore extends Component {
   }
 
   updateWitness(witness) {
-    this.state.witness = witness;
+    this.state.game.witness.value = witness;
+    this.state.game.witness.inError = false;
+    this.setState({ game: this.state.game });
   }
 
   async submitScore() {
-    fetch("api/game/submitmygame", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.state.game),
-    }).then(() => {
-      this.props.history.push("/");
-    });
+    if (this.validateInput()) {
+      var data = {
+        date: this.state.game.date.value,
+        score: this.state.game.score.value,
+        location: this.state.game.location.value,
+        witness: this.state.game.witness.value,
+      };
+      DataAccess.postData("api/game/submitmygame", data, () => {
+        this.props.history.push("/");
+      });
+    } else {
+      this.setState({ game: this.state.game });
+    }
+  }
+
+  validateInput() {
+    var submit = true;
+    if (this.state.game.date.value == "") {
+      submit = false;
+      this.state.game.date.inError = true;
+    }
+    if (this.state.game.score.value == 0) {
+      submit = false;
+      this.state.game.score.inError = true;
+    }
+    if (this.state.game.location.value == "") {
+      submit = false;
+      this.state.game.location.inError = true;
+    }
+    if (this.state.game.witness.value == "") {
+      submit = false;
+      this.state.game.witness.inError = true;
+    }
+    return submit;
   }
 
   render() {
-    const renderAthleteSelection = ()=>{
-      if(this.props.admin) {
+    const renderAthleteSelection = () => {
+      if (this.props.admin) {
         return (
           <div>
             Athlete
@@ -64,7 +97,7 @@ class LogScore extends Component {
           </div>
         );
       }
-    }
+    };
     return (
       <div>
         <BackBar history={this.props.history}>Log Score </BackBar>
@@ -72,47 +105,51 @@ class LogScore extends Component {
         <div id="input-fields">
           <form>
             <div className="field">
-              <span classname="field-title">Date</span>
+              <span className="field-title">Date</span>
               <Input
                 emoji="📅"
                 type="date"
                 onChange={(e) => {
                   this.updateDate(e.target.value);
                 }}
-                defaultValue={this.state.game?.date}
+                defaultValue={this.state.game?.date.value}
+                inError={this.state.game.date.inError}
               ></Input>
             </div>
             <div className="field">
-            <span classname="field-title">Location</span>
+              <span className="field-title">Location</span>
               <Input
                 emoji="🌐"
                 type="text"
                 onChange={(e) => {
                   this.updateLocation(e.target.value);
                 }}
-                defaultValue={this.state.game?.location}
+                defaultValue={this.state.game?.location.value}
+                inError={this.state.game.location.inError}
               ></Input>
             </div>
             <div className="field">
-            <span classname="field-title">Game Score (0 - 300)</span>
+              <span className="field-title">Game Score (0 - 300)</span>
               <Input
                 emoji="🎳"
                 type="number"
                 onChange={(e) => {
                   this.updateScore(parseInt(e.target.value));
                 }}
-                defaultValue={this.state.game?.score}
+                defaultValue={this.state.game?.score.value}
+                inError={this.state.game.score.inError}
               ></Input>
             </div>
             <div className="field">
-            <span classname="field-title">Witness</span>
+              <span className="field-title">Witness</span>
               <Input
                 emoji="😀"
                 type="text"
                 onChange={(e) => {
                   this.updateWitness(e.target.value);
                 }}
-                defaultValue={this.state.game?.witness}
+                defaultValue={this.state.game?.witness.value}
+                inError={this.state.game.witness.inError}
               ></Input>
             </div>
           </form>
@@ -139,4 +176,4 @@ class LogScore extends Component {
   }
 }
 
-export default withAuth0(LogScore);
+export default LogScore;

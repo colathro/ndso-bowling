@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./Login";
-import { Router, Switch, Route } from "react-router";
+import { Switch, Route } from "react-router";
 import Profile from "./Profile";
 import LogScore from "./LogScore";
 import MyScores from "./MyScores";
@@ -10,12 +10,9 @@ import AdminAthletes from "./AdminAthletes";
 import AdminExports from "./AdminExports";
 import AdminLogScore from "./AdminLogScore";
 import HomeButtons from "./HomeButtons";
-import DataAccess from "../utils/DataAccess";
 
 const Home = (props) => {
   const { isAuthenticated } = useAuth0();
-
-  console.log(DataAccess);
 
   if (!isAuthenticated) {
     return <Login></Login>;

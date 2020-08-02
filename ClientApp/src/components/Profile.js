@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
+import DataAccess from "../utils/DataAccess";
 import * as QueryString from "query-string";
 import BackBar from "./ui/BackBar";
 import Input from "./ui/Input";
@@ -70,163 +71,55 @@ class Profile extends Component {
   }
 
   async getMyProfile() {
-    return fetch("api/user/me", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    })
-      .then(async (response) => {
-        if (response.status == 200) {
-          this.setState({ loading: false });
-        }
-        var body = response.json();
-        return body;
-      })
-      .then((body) => {
-        this.setState({ profile: body });
-      });
+    return DataAccess.getData("api/user/me", (body) => {
+      this.setState({ profile: body, loading: false });
+    });
   }
 
   async getMyAthlete() {
-    fetch("api/athlete/me", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    })
-      .then(async (response) => {
-        if (response.status == 200) {
-          this.setState({ loading: false });
-        }
-        var body = response.json();
-        return body;
-      })
-      .then((body) => {
-        this.setState({ athlete: body });
-      });
+    return DataAccess.getData("api/athlete/me", (body) => {
+      this.setState({ athlete: body, loading: false });
+    });
   }
 
   async getAthlete(id) {
-    fetch(`api/admin/athlete?id=${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    })
-      .then(async (response) => {
-        if (response.status == 200) {
-          this.setState({ loading: false });
-        }
-        var body = response.json();
-        return body;
-      })
-      .then((body) => {
-        this.setState({ athlete: body });
-      });
+    return DataAccess.getData(`api/admin/athlete?id=${id}`, (body) => {
+      this.setState({ athlete: body, loading: false });
+    });
   }
 
   async updateProfile() {
     this.setState({ loading: true });
     if (this.state.registering) {
-      fetch("api/admin/registerathlete", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently(
-            {
-              audience: window.location.origin,
-            }
-          )}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.state.athlete),
-      }).then((response) => {
-        if (response.status == 200) {
+      DataAccess.postData(
+        "api/admin/registerathlete",
+        this.state.athlete,
+        () => {
           this.props.history.goBack();
-        } else {
-          this.setState({ loading: false });
         }
-      });
+      );
     } else if (this.state.updating) {
-      fetch("api/admin/athlete", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently(
-            {
-              audience: window.location.origin,
-            }
-          )}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.state.athlete),
-      }).then((response) => {
-        if (response.status == 200) {
-          this.props.history.goBack();
-        } else {
-          this.setState({ loading: false });
-        }
+      DataAccess.putData("api/admin/athlete", this.state.athlete, () => {
+        this.props.history.goBack();
       });
     } else {
-      fetch("api/athlete/update", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently(
-            {
-              audience: window.location.origin,
-            }
-          )}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.state.athlete),
-      }).then((response) => {
-        if (response.status == 200) {
-          this.props.history.goBack();
-        } else {
-          this.setState({ loading: false });
-        }
+      DataAccess.putData("api/athlete/update", this.state.athlete, () => {
+        this.props.history.goBack();
       });
     }
   }
 
   async approve(id) {
     this.setState({ loading: true });
-    fetch(`api/admin/approveathlete?id=${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    }).then((response) => {
-      if (response.status == 200) {
-        this.props.history.goBack();
-      } else {
-        this.setState({ loading: false });
-      }
+    DataAccess.postData(`api/admin/approveathlete?id=${id}`, null, () => {
+      this.props.history.goBack();
     });
   }
 
   async deny(id) {
     this.setState({ loading: true });
-    fetch(`api/admin/denyathlete?id=${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    }).then((response) => {
-      if (response.status == 200) {
-        this.props.history.goBack();
-      } else {
-        this.setState({ loading: false });
-      }
+    DataAccess.postData(`api/admin/denyathlete?id=${id}`, null, () => {
+      this.props.history.goBack();
     });
   }
 
@@ -401,7 +294,9 @@ class Profile extends Component {
               <div style={{ display: "flex" }}>
                 <SmallButton
                   onClick={() =>
-                    this.props.history.push(`/admin/athletes/scoresbyathlete?id=${this.state.target}`)
+                    this.props.history.push(
+                      `/admin/athletes/scoresbyathlete?id=${this.state.target}`
+                    )
                   }
                 >
                   View Scores

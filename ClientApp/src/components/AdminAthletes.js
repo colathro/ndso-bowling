@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
-import { Router, Switch, Route } from "react-router";
+import { Switch, Route } from "react-router";
 import AdminAthleteApprovals from "./AdminAthleteApprovals";
 import AdminAllAthletes from "./AdminAllAthletes";
 import AdminRegisterAthlete from "./AdminRegisterAthlete";
@@ -65,7 +65,11 @@ class AdminAthletes extends Component {
             exact
             component={AdminAthleteApprovals}
           />
-          <Route path="/admin/athletes/scoresbyathlete*" exact component={AdminScoresByAthlete}/>
+          <Route
+            path="/admin/athletes/scoresbyathlete*"
+            exact
+            component={AdminScoresByAthlete}
+          />
           <Route path="/admin/athletes" exact component={AdminAthleteMain} />
           <Route path="/admin/athlete" exact component={AdminAthlete} />
         </Switch>
