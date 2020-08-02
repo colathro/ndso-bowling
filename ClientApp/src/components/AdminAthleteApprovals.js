@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { withAuth0 } from "@auth0/auth0-react";
-import { Router, Switch, Route } from "react-router";
+import DataAccess from "../utils/DataAccess";
 import BackBar from "./ui/BackBar";
 import List from "./ui/List";
 
@@ -21,21 +20,9 @@ class AdminAthleteApprovals extends Component {
   }
 
   async getAthletes() {
-    fetch("api/admin/AllUnapprovedAthletes", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${await this.props.auth0.getAccessTokenSilently({
-          audience: window.location.origin,
-        })}`,
-      },
-    })
-      .then(async (response) => {
-        var body = response.json();
-        return body;
-      })
-      .then((body) => {
-        this.setState({ athletes: body, loading: false });
-      });
+    DataAccess.getData("api/admin/AllUnapprovedAthletes", (body) => {
+      this.setState({ athletes: body, loading: false });
+    });
   }
 
   navigateToAthlete(id) {
@@ -63,4 +50,4 @@ class AdminAthleteApprovals extends Component {
   }
 }
 
-export default withAuth0(AdminAthleteApprovals);
+export default AdminAthleteApprovals;

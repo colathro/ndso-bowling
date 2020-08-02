@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withAuth0 } from "@auth0/auth0-react";
 import BackBar from "./ui/BackBar";
 import DataAccess from "../utils/DataAccess";
 import List from "./ui/List";
@@ -42,4 +41,4 @@ class MyScores extends Component {
   }
 }
 
-export default withAuth0(MyScores);
+export default MyScores;

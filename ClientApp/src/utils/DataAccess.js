@@ -15,13 +15,39 @@ class DataAccessClient {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(() => {
-      callback();
-    });
+    })
+      .then(async (response) => {
+        if (response.status != 200) {
+          showError();
+        }
+      })
+      .then(() => {
+        callback();
+      });
+  }
+
+  async putData(uri, data, callback) {
+    fetch(uri, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${await this.Auth.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(async (response) => {
+        if (response.status != 200) {
+          showError();
+        }
+      })
+      .then(() => {
+        callback();
+      });
   }
 
   async getData(uri, callback) {
-    console.log(this.Auth);
     fetch(uri, {
       method: "GET",
       headers: {
@@ -40,6 +66,21 @@ class DataAccessClient {
       .then((object) => {
         callback(object);
       });
+  }
+
+  async getNoData(uri, callback) {
+    fetch(uri, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await this.Auth.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+      },
+    }).then((response) => {
+      if (response.status == 200) {
+        callback();
+      }
+    });
   }
 }
 

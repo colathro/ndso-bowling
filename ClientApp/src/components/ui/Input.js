@@ -3,8 +3,15 @@ import Twemoji from "react-twemoji";
 import "./Input.scss";
 
 const Input = (props) => {
+  if (props.inError) {
+    var addonClassName = " red-border";
+  } else {
+    var addonClassName = "";
+  }
+  var calculatedClass = "input-wrapper" + addonClassName;
+
   return (
-    <div className="input-wrapper">
+    <div className={calculatedClass}>
       <div className="emoji-wrapper">
         <Twemoji options={{ className: "emoji" }}>{props.emoji}</Twemoji>
       </div>
