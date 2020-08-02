@@ -1,37 +1,51 @@
 .button-wrapper {
+  width: 335px;
+  height: 120px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .button-inner {
     display: flex;
-    width: 335px;
-    height: 120px;
+    height: 100%;
     background: #ffffff;
     border: 1px solid #c8c8c8;
     box-sizing: border-box;
     border-radius: 2px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
+    &:hover {
+      transform: scale(0.97, 0.97);
+      transition: scale ease-in;
+      box-shadow: 0 0 5px;
+    }
 
     .emoji-aside {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #321160;
-        width: 99px;
-        border-radius: 2px 0px 0px 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #321160;
+      width: 99px;
+      border-radius: 2px 0px 0px 2px;
 
-        .emoji-wrapper {
-            .emoji {
-                margin: auto;
-                width: 45px;
-                height: 45px;
-            }
+      .emoji-wrapper {
+        .emoji {
+          margin: auto;
+          width: 45px;
+          height: 45px;
         }
+      }
     }
 
     .button-text {
-        margin-left: 20px;
-        display: flex;
-        align-items: center;
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
 
-        font-weight: bold;
-        font-size: 20px;
+      font-weight: bold;
+      font-size: 20px;
     }
+  }
 }
