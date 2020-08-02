@@ -3,14 +3,16 @@ import Twemoji from "react-twemoji";
 import "./SmallButton.scss";
 
 const SmallButton = (props) => {
-  var wrapper = "small-button-wrapper";
+  var inner = "small-button-inner";
   if (props.primary) {
-    wrapper += " purple";
+    inner += " purple";
   }
   return (
-    <div className={wrapper} onClick={props.onClick}>
-      <Twemoji options={{ className: "emoji" }}>{props.emoji}</Twemoji>
-      <span className="button-text">{props.children}</span>
+    <div className="small-button-wrapper" onClick={props.onClick}>
+      <div className={inner}>
+        <Twemoji options={{ className: "emoji" }}>{props.emoji}</Twemoji>
+        <span className="button-text">{props.children}</span>
+      </div>
     </div>
   );
 };

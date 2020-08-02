@@ -1,4 +1,14 @@
 .small-button-wrapper {
+  display: flex;
+  width: 170px;
+  height: 52px;
+  margin: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .small-button-inner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,28 +18,33 @@
     background-color: #ffffff;
     box-sizing: border-box;
     border-radius: 5px;
-    margin: 5px;
 
-    .emoji {
-        margin: auto;
-        height: 30px;
+    &:hover {
+      transform: scale(0.97, 0.97);
+      transition: scale ease-in;
+      box-shadow: 0 0 5px;
     }
+  }
 
-    .button-text {
-        margin-left: 10px;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 24px;
+  .emoji {
+    margin: auto;
+    height: 30px;
+  }
 
-        color: #333333;
-    }
-}
+  .button-text {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
 
-.purple {
+    color: #333333;
+  }
+
+  .purple {
     background-color: #321160;
 
     .button-text {
-        color: #ffffff;
+      color: #ffffff;
     }
-    
+  }
 }
