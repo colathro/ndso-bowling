@@ -102,7 +102,7 @@ class LogScore extends Component {
       <div>
         <BackBar history={this.props.history}>Log Score </BackBar>
         {renderAthleteSelection()}
-        <div id="input-fields">
+        <div id="input-fields" role="main">
           <form>
             <div className="field">
               <span className="field-title">Date</span>
@@ -114,6 +114,7 @@ class LogScore extends Component {
                 }}
                 defaultValue={this.state.game?.date.value}
                 inError={this.state.game.date.inError}
+                ariaLabel="Date field"
               ></Input>
             </div>
             <div className="field">
@@ -126,6 +127,7 @@ class LogScore extends Component {
                 }}
                 defaultValue={this.state.game?.location.value}
                 inError={this.state.game.location.inError}
+                ariaLabel="Location field"
               ></Input>
             </div>
             <div className="field">
@@ -138,6 +140,7 @@ class LogScore extends Component {
                 }}
                 defaultValue={this.state.game?.score.value}
                 inError={this.state.game.score.inError}
+                ariaLabel="Game score field (0-300)"
               ></Input>
             </div>
             <div className="field">
@@ -150,6 +153,7 @@ class LogScore extends Component {
                 }}
                 defaultValue={this.state.game?.witness.value}
                 inError={this.state.game.witness.inError}
+                ariaLabel="Witness field"
               ></Input>
             </div>
           </form>
@@ -160,6 +164,7 @@ class LogScore extends Component {
                 onClick={async () => {
                   this.props.history.goBack();
                 }}
+                ariaLabel="cancel and go back"
               ></SmallButton>
               <SmallButton
                 emoji="✅"
@@ -167,6 +172,7 @@ class LogScore extends Component {
                 onClick={() => {
                   this.submitScore();
                 }}
+                ariaLabel="submit button"
               ></SmallButton>
             </div>
           </div>

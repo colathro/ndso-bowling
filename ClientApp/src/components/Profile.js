@@ -132,7 +132,7 @@ class Profile extends Component {
         <BackBar history={this.props.history}>
           {this.state.registering ? "Register Athlete" : "Edit Profile"}
         </BackBar>
-        <div id="input-fields">
+        <div id="input-fields" role="main">
           <form>
             <div className="field">
               <span className="field-title">First Name</span>
@@ -144,6 +144,7 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.firstName = e.target.value;
                 }}
+                ariaLabel="first name field"
               ></Input>
             </div>
             <div className="field">
@@ -156,6 +157,7 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.lastName = e.target.value;
                 }}
+                ariaLabel="last name field"
               ></Input>
             </div>
             <div className="field">
@@ -168,6 +170,7 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.birthday = e.target.value;
                 }}
+                ariaLabel="brithday field"
               />
             </div>
             <div className="field">
@@ -180,6 +183,7 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.phoneNumber = e.target.value;
                 }}
+                ariaLabel="phone number field"
               ></Input>
             </div>
             <div className="field">
@@ -190,49 +194,89 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.district = parseInt(e.target.value);
                 }}
+                ariaLabel="districts field"
               >
-                <option value={0} selected={this.state.athlete?.district == 0}>
+                <option
+                  value={0}
+                  selected={this.state.athlete?.district == 0}
+                  aria-label="none"
+                >
                   None
                 </option>
-                <option value={1} selected={this.state.athlete?.district == 1}>
+                <option
+                  value={1}
+                  selected={this.state.athlete?.district == 1}
+                  aria-label="Williston - 1"
+                >
                   Williston - 1
                 </option>
-                <option value={2} selected={this.state.athlete?.district == 2}>
+                <option
+                  value={2}
+                  selected={this.state.athlete?.district == 2}
+                  aria-label="Minot - 2"
+                >
                   Minot - 2
                 </option>
-                <option value={3} selected={this.state.athlete?.district == 3}>
+                <option
+                  value={3}
+                  selected={this.state.athlete?.district == 3}
+                  aria-label="Devils Lake - 3"
+                >
                   Devils Lake - 3
                 </option>
-                <option value={5} selected={this.state.athlete?.district == 5}>
+                <option
+                  value={5}
+                  selected={this.state.athlete?.district == 5}
+                  aria-label="Grand Forks - 5"
+                >
                   Grand Forks - 5
                 </option>
-                <option value={6} selected={this.state.athlete?.district == 6}>
+                <option
+                  value={6}
+                  selected={this.state.athlete?.district == 6}
+                  aria-label="Fargo - 6"
+                >
                   Fargo - 6
                 </option>
-                <option value={7} selected={this.state.athlete?.district == 7}>
-                  Wahpteon - 7
+                <option
+                  value={7}
+                  selected={this.state.athlete?.district == 7}
+                  aria-label="Wahpeton - 7"
+                >
+                  Wahpeton - 7
                 </option>
-                <option value={8} selected={this.state.athlete?.district == 8}>
+                <option
+                  value={8}
+                  selected={this.state.athlete?.district == 8}
+                  aria-label="Valley City - 8"
+                >
                   Valley City - 8
                 </option>
-                <option value={9} selected={this.state.athlete?.district == 9}>
+                <option
+                  value={9}
+                  selected={this.state.athlete?.district == 9}
+                  aria-label="Jamestown - 9"
+                >
                   Jamestown - 9
                 </option>
                 <option
                   value={10}
                   selected={this.state.athlete?.district == 10}
+                  aria-label="Bismarck - 10"
                 >
                   Bismarck - 10
                 </option>
                 <option
                   value={11}
                   selected={this.state.athlete?.district == 11}
+                  aria-label="Mandan - 11"
                 >
                   Mandan - 11
                 </option>
                 <option
                   value={12}
                   selected={this.state.athlete?.district == 12}
+                  aria-label="Dickinson - 12"
                 >
                   Dickinson - 12
                 </option>
@@ -248,6 +292,7 @@ class Profile extends Component {
                 onChange={(e) => {
                   this.state.athlete.email = e.target.value;
                 }}
+                ariaLabel="email field"
               ></Input>
             </div>
           </form>
@@ -259,6 +304,7 @@ class Profile extends Component {
                   onClick={async () => {
                     this.props.history.goBack();
                   }}
+                  ariaLabel="cancel and go back"
                 ></SmallButton>
                 <SmallButton
                   emoji="✅"
@@ -266,6 +312,7 @@ class Profile extends Component {
                   onClick={async () => {
                     await this.updateProfile();
                   }}
+                  ariaLabel="submit your profile"
                 ></SmallButton>
               </div>
             )}

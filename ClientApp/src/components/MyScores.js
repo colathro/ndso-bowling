@@ -29,7 +29,7 @@ class MyScores extends Component {
 
   render() {
     return (
-      <div>
+      <div role="main">
         <BackBar history={this.props.history}>My Scores</BackBar>
         <div>
           {!this.state.loading && (

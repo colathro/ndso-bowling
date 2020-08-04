@@ -13,6 +13,7 @@ const Select = (props) => {
         disabled={props.editable != null && !props.editable}
         defaultValue={props.defaultValue}
         onChange={props.onChange}
+        aria-label={props.ariaLabel}
       >
         {props.children}
       </select>
