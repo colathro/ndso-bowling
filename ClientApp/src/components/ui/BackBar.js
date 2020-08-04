@@ -7,11 +7,15 @@ const BackBar = (props) => {
     props.history.goBack();
   };
   return (
-    <div className="backbar-wrapper">
+    <div className="backbar-wrapper" role="navigation">
       <div className="backbar-button" onClick={back}>
-        <img className="button-img" src="/images/back.svg"></img>
+        <img
+          className="button-img"
+          src="/images/back.svg"
+          aria-label="back button"
+        ></img>
       </div>
-      <div className="backbar-text">{props.children}</div>
+      <h1 className="backbar-text">{props.children}</h1>
     </div>
   );
 };

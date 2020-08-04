@@ -8,7 +8,11 @@ const SmallButton = (props) => {
     inner += " purple";
   }
   return (
-    <div className="small-button-wrapper" onClick={props.onClick}>
+    <div
+      className="small-button-wrapper"
+      onClick={props.onClick}
+      aria-label={props.ariaLabel}
+    >
       <div className={inner}>
         <Twemoji options={{ className: "emoji" }}>{props.emoji}</Twemoji>
         <span className="button-text">{props.children}</span>

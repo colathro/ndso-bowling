@@ -22,7 +22,8 @@ class HomeButtons extends Component {
 
   render() {
     return (
-      <div id="menu">
+      <div id="menu" role="main">
+        <h1>Menu</h1>
         <Button emoji="😀" onClick={() => this.props.history.push("/profile")}>
           My Profile
         </Button>

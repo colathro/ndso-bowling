@@ -21,6 +21,7 @@ const Input = (props) => {
         type={props.type}
         defaultValue={props.defaultValue}
         onChange={props.onChange}
+        aria-label={props.ariaLabel}
       ></input>
     </div>
   );
