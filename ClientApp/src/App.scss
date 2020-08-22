@@ -1,6 +1,7 @@
 html {
   font-family: "IBM Plex Sans", sans-serif;
-  color: #333333;
+  background-color: #2e3139;
+  color: #fff;
 }
 
 body {
@@ -16,9 +17,16 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: #321160;
-  padding: 8px;
+  padding: 0px 8px;
   height: 100vh;
+
+  .login-button {
+    margin-top: 3em;
+  }
+
+  .title-image {
+    width: 100vw;
+  }
 
   .title-emoji {
     margin-bottom: 30px;
@@ -39,8 +47,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2em;
   overflow-y: scroll;
+  .image {
+    margin-top: 8px;
+  }
+
+  .welcome {
+    margin: 1em;
+  }
 }
 
 #input-fields {
@@ -57,7 +71,7 @@ body {
   .field-title {
     font-weight: 600;
     font-size: 14px;
-    color: #333333;
+    color: #fff;
     padding: 5px;
     margin-bottom: 5px;
   }

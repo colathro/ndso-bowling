@@ -1,35 +1,35 @@
 .select-wrapper {
-    width: 278px;
-    height: 52px;
-    display: flex;
-    border: 1px solid #C8C8C8;
+  width: 278px;
+  height: 52px;
+  display: flex;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  select {
+    border: none;
+    width: 226px;
+    border-radius: 0px;
+    background: none;
+    padding: 0px;
+    text-indent: 10px;
+  }
+
+  .emoji-wrapper {
+    border-right: 2px solid #fff;
     box-sizing: border-box;
     border-radius: 2px;
+    background-color: #fff;
+  }
 
+  .emoji {
+    width: 30px;
+    padding: 10px;
+  }
 
-    select {
-        border: none;
-        width: 226px;
-        border-radius: 0px;
-        background: none;
-        padding: 0px;
-        text-indent: 10px;
-    }
-
-    .emoji-wrapper {
-        border-right: 1px solid #C8C8C8;
-        box-sizing: border-box;
-        border-radius: 2px;
-    }
-
-    .emoji {
-        width: 30px;
-        padding: 10px;
-    }
-
-    .input-text {
-        font-weight: 600;
-        font-size: 23px;
-        color: #333333;
-    }
+  .input-text {
+    font-weight: 600;
+    font-size: 23px;
+    color: #fff;
+  }
 }

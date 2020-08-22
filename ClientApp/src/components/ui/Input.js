@@ -22,6 +22,8 @@ const Input = (props) => {
         defaultValue={props.defaultValue}
         onChange={props.onChange}
         aria-label={props.ariaLabel}
+        maxLength={props.maxlength}
+        pattern={props.pattern}
       ></input>
     </div>
   );

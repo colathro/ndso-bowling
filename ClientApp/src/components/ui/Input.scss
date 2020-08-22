@@ -2,12 +2,13 @@
   width: 278px;
   height: 52px;
   display: flex;
-  border: 1px solid #c8c8c8;
+  border: 2px solid #fff;
+  border-radius: 4px;
   box-sizing: border-box;
-  border-radius: 2px;
 
   input {
     border: none;
+    color: #fff;
     width: 226px;
     border-radius: 0px;
     background: none;
@@ -15,10 +16,15 @@
     text-indent: 10px;
   }
 
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+
   .emoji-wrapper {
-    border-right: 1px solid #c8c8c8;
+    border-right: 2px solid #fff;
     box-sizing: border-box;
     border-radius: 2px;
+    background-color: #fff;
   }
 
   .emoji {
@@ -29,7 +35,7 @@
   .input-text {
     font-weight: 600;
     font-size: 23px;
-    color: #333333;
+    color: #fff;
   }
 }
 .red-border {
