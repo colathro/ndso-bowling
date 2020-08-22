@@ -1,26 +1,27 @@
 .backbar-wrapper {
-    display: flex;
-    align-items: center;
-    background: #321160;
-    height: 64px;
-    position: sticky;
+  display: flex;
+  align-items: center;
+  background: red;
+  height: 64px;
+  position: sticky;
 
-    .backbar-button {}
+  .backbar-button {
+  }
 
-    .backbar-text {
-        font-size: 26px;
-        line-height: 34px;
-        /* identical to box height */
-        font-weight: bold;
-        text-align: center;
-        margin-left: 24px;
+  .backbar-text {
+    font-size: 26px;
+    line-height: 34px;
+    /* identical to box height */
+    font-weight: bold;
+    text-align: center;
+    margin-left: 24px;
 
-        color: #FFFFFF;
-    }
+    color: #ffffff;
+  }
 
-    .button-img {
-        height: 24px;
-        margin-left: 20px;
-        margin-top: 7px
-    }
+  .button-img {
+    height: 24px;
+    margin-left: 20px;
+    margin-top: 7px;
+  }
 }

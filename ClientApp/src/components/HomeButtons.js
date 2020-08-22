@@ -7,7 +7,7 @@ import DataAccess from "../utils/DataAccess";
 class HomeButtons extends Component {
   constructor(props) {
     super(props);
-    this.state = { enableAdmin: false };
+    this.state = { enableAdmin: false, me: undefined };
   }
 
   async componentDidMount() {
@@ -16,19 +16,34 @@ class HomeButtons extends Component {
     });
 
     DataAccess.getData("api/user/me", () => {
-      DataAccess.getData("api/athlete/me", () => {});
+      DataAccess.getData("api/athlete/me", (me) => {
+        console.log(me);
+        this.setState({ me: me });
+      });
     });
   }
 
   render() {
     return (
       <div id="menu" role="main">
-        <h1>Menu</h1>
+        <img
+          className="image"
+          src="/images/SO_NorthDakota_Mark_resized.png"
+          alt="Special Olympics ND Logo"
+        ></img>
+        <div className="welcome">
+          {this.state.me != undefined && this.state.me.firstName != "" && (
+            <span>Welcome back {this.state.me?.firstName}!</span>
+          )}
+          {this.state.me != undefined && this.state.me.firstName == "" && (
+            <span>Start with setting up your profile!</span>
+          )}
+        </div>
         <Button emoji="😀" onClick={() => this.props.history.push("/profile")}>
           My Profile
         </Button>
         <Button emoji="📝" onClick={() => this.props.history.push("/logscore")}>
-          Log Score
+          New Score Entry
         </Button>
         <Button emoji="📜" onClick={() => this.props.history.push("/myscores")}>
           My Scores

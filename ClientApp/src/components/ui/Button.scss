@@ -3,6 +3,7 @@
   height: 120px;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: #fff;
 
   &:hover {
     cursor: pointer;
@@ -11,22 +12,26 @@
   .button-inner {
     display: flex;
     height: 100%;
-    background: #ffffff;
-    border: 1px solid #c8c8c8;
+    border: 2px solid #fff;
+    border-radius: 4px;
     box-sizing: border-box;
-    border-radius: 2px;
 
     &:hover {
       transform: scale(0.97, 0.97);
-      transition: scale ease-in;
-      box-shadow: 0 0 5px;
+      border-color: red;
+      transition: all ease-in 0.3s;
+      background-color: red;
+      .emoji-aside {
+        background-color: #212328;
+        transition: all ease-in 0.3s;
+      }
     }
 
     .emoji-aside {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #321160;
+      background: #6f6f6f;
       width: 99px;
       border-radius: 2px 0px 0px 2px;
 

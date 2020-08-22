@@ -300,20 +300,22 @@ class Profile extends Component {
             {this.state.editable && (
               <div style={{ display: "flex" }}>
                 <SmallButton
-                  emoji="❌"
                   onClick={async () => {
                     this.props.history.goBack();
                   }}
                   ariaLabel="cancel and go back"
-                ></SmallButton>
+                >
+                  Cancel
+                </SmallButton>
                 <SmallButton
-                  emoji="✅"
                   primary={true}
                   onClick={async () => {
                     await this.updateProfile();
                   }}
                   ariaLabel="submit your profile"
-                ></SmallButton>
+                >
+                  Save
+                </SmallButton>
               </div>
             )}
             {this.state.approvalButton && (

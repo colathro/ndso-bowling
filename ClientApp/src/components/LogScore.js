@@ -134,12 +134,14 @@ class LogScore extends Component {
               <span className="field-title">Game Score (0 - 300)</span>
               <Input
                 emoji="🎳"
-                type="number"
+                type="text"
+                pattern="\d*"
                 onChange={(e) => {
                   this.updateScore(parseInt(e.target.value));
                 }}
                 defaultValue={this.state.game?.score.value}
                 inError={this.state.game.score.inError}
+                maxlength="3"
                 ariaLabel="Game score field (0-300)"
               ></Input>
             </div>
@@ -160,20 +162,22 @@ class LogScore extends Component {
           <div className="submit-buttons">
             <div style={{ display: "flex" }}>
               <SmallButton
-                emoji="❌"
                 onClick={async () => {
                   this.props.history.goBack();
                 }}
                 ariaLabel="cancel and go back"
-              ></SmallButton>
+              >
+                Cancel
+              </SmallButton>
               <SmallButton
-                emoji="✅"
                 primary={true}
                 onClick={() => {
                   this.submitScore();
                 }}
                 ariaLabel="submit button"
-              ></SmallButton>
+              >
+                Submit
+              </SmallButton>
             </div>
           </div>
         </div>

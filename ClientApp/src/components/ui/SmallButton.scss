@@ -14,10 +14,9 @@
     align-items: center;
     width: 170px;
     height: 52px;
-    border: 1px solid #321160;
-    background-color: #ffffff;
+    border: 2px solid #fff;
+    border-radius: 4px;
     box-sizing: border-box;
-    border-radius: 5px;
 
     &:hover {
       transform: scale(0.97, 0.97);
@@ -37,12 +36,10 @@
     font-size: 18px;
     line-height: 24px;
 
-    color: #333333;
+    color: #ffffff;
   }
 
   .purple {
-    background-color: #321160;
-
     .button-text {
       color: #ffffff;
     }
