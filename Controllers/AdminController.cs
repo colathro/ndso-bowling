@@ -48,11 +48,11 @@ namespace ndso_bowling.Controllers
         {
             var athletes = this._database.Athletes.ToList();
 
-            string csv = "Id;FirstName;MiddleName;LastName;Birthday;PhoneNumber;Email;ApprovalStatus" + Environment.NewLine;
+            string csv = "Id;FirstName;MiddleName;LastName;Birthday;PhoneNumber;Email;ApprovalStatus;District" + Environment.NewLine;
 
             foreach (Athlete a in athletes)
             {
-                csv += $"{r(a.Id.ToString())};{r(a.FirstName)};{r(a.MiddleName)};{r(a.LastName)};{r(a.Birthday)};{r(a.PhoneNumber.ToString())};{r(a.Email)};{r(a.Approved.ToString())}" + Environment.NewLine;
+                csv += $"{r(a.Id.ToString())};{r(a.FirstName)};{r(a.MiddleName)};{r(a.LastName)};{r(a.Birthday)};{r(a.PhoneNumber.ToString())};{r(a.Email)};{r(a.Approved.ToString())};{r(a.District.ToString())}" + Environment.NewLine;
             }
 
             return Ok(csv);

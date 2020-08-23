@@ -14,5 +14,6 @@ namespace ndso_bowling.Database
         public Athlete Athlete { get; set; }
         public ReviewStatus Review { get; set; }
         public string Witness { get; set; }
+        public string WitnessPhone { get; set; }
     }
 }

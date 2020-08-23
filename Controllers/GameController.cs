@@ -55,26 +55,6 @@ namespace ndso_bowling.Controllers
             return Ok(games);
         }
 
-        [HttpPost("submitgame")]
-        public IActionResult SubmitGame(string first, string last, string pin, [FromBody] Game game)
-        {
-            first = first.ToLower();
-            last = last.ToLower();
-
-            var athlete = this._database.Athletes.Where(a => a.FirstName == first && a.LastName == last && a.Pin == pin).FirstOrDefault();
-            if (athlete == default)
-            {
-                return NotFound();
-            }
-
-            game.Review = ReviewStatus.NotReviewed;
-            game.Athlete = athlete;
-            this._database.Games.Add(game);
-
-            this._database.SaveChanges();
-            return Ok();
-        }
-
         [HttpPost("submitmygame")]
         public IActionResult SubmitGame([FromBody] Game game)
         {

@@ -13,6 +13,7 @@ class LogScore extends Component {
         score: { value: 0, inError: false },
         location: { value: "", inError: false },
         witness: { value: "", inError: false },
+        witnessPhone: { value: "", inError: false },
       },
     };
   }
@@ -42,6 +43,11 @@ class LogScore extends Component {
   updateWitness(witness) {
     this.state.game.witness.value = witness;
     this.state.game.witness.inError = false;
+    this.setState({ game: this.state.game });
+  }
+  updateWitnessPhone(witnessPhone) {
+    this.state.game.witnessPhone.value = witnessPhone;
+    this.state.game.witnessPhone.inError = false;
     this.setState({ game: this.state.game });
   }
 
@@ -118,7 +124,7 @@ class LogScore extends Component {
               ></Input>
             </div>
             <div className="field">
-              <span className="field-title">Location</span>
+              <span className="field-title">Bowling Alley</span>
               <Input
                 emoji="🌐"
                 type="text"
@@ -139,7 +145,7 @@ class LogScore extends Component {
                 onChange={(e) => {
                   this.updateScore(parseInt(e.target.value));
                 }}
-                defaultValue={this.state.game?.score.value}
+                defaultValue=""
                 inError={this.state.game.score.inError}
                 maxlength="3"
                 ariaLabel="Game score field (0-300)"
@@ -155,6 +161,19 @@ class LogScore extends Component {
                 }}
                 defaultValue={this.state.game?.witness.value}
                 inError={this.state.game.witness.inError}
+                ariaLabel="Witness field"
+              ></Input>
+            </div>
+            <div className="field">
+              <span className="field-title">Witness Phone</span>
+              <Input
+                emoji="😀"
+                type="text"
+                onChange={(e) => {
+                  this.updateWitnessPhone(e.target.value);
+                }}
+                defaultValue=""
+                inError={false}
                 ariaLabel="Witness field"
               ></Input>
             </div>
