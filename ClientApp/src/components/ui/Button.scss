@@ -11,20 +11,25 @@
 
   .button-inner {
     display: flex;
+    justify-content: center;
     height: 100%;
     border: 2px solid #fff;
     border-radius: 4px;
     box-sizing: border-box;
+    background-position: center;
+    background-color: #2e3139;
+    transition: background 0.5s;
 
     &:hover {
-      transform: scale(0.97, 0.97);
-      border-color: red;
-      transition: all ease-in 0.3s;
-      background-color: red;
-      .emoji-aside {
-        background-color: #212328;
-        transition: all ease-in 0.3s;
-      }
+      cursor: pointer;
+      background: #3d414b radial-gradient(circle, transparent 1%, #3d414b 1%)
+        center/15000%;
+    }
+
+    &:active {
+      background-color: #2e3139;
+      background-size: 100%;
+      transition: background 0s;
     }
 
     .emoji-aside {
@@ -45,12 +50,15 @@
     }
 
     .button-text {
-      margin-left: 20px;
       display: flex;
       align-items: center;
 
       font-weight: bold;
-      font-size: 20px;
+      font-size: 36px;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none;
     }
   }
 }

@@ -37,7 +37,7 @@ class HomeButtons extends Component {
           )}
           {this.state.me != undefined && this.state.me.firstName == "" && (
             <span>Start with setting up your profile!</span>
-          )}
+          )}{" "}
         </div>
         <Button emoji="😀" onClick={() => this.props.history.push("/profile")}>
           My Profile
