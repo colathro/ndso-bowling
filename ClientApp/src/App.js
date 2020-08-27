@@ -27,6 +27,7 @@ class App extends Component {
 
     return (
       <Router history={History}>
+        <div className="background"></div>
         <Switch>
           <Route path="*" exact component={Home} />
         </Switch>
