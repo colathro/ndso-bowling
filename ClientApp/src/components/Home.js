@@ -1,37 +1,88 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./Login";
-import { Switch, Route } from "react-router";
-import Profile from "./Profile";
-import LogScore from "./LogScore";
-import MyScores from "./MyScores";
-import Admin from "./Admin";
-import AdminAthletes from "./AdminAthletes";
-import AdminExports from "./AdminExports";
-import AdminLogScore from "./AdminLogScore";
-import HomeButtons from "./HomeButtons";
+import React, { Component } from "react";
+import { withAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "../auth/LogoutButton";
+import Button from "./ui/Button";
+import DataAccess from "../utils/DataAccess";
 
-const Home = (props) => {
-  const { isAuthenticated } = useAuth0();
-
-  if (!isAuthenticated) {
-    return <Login></Login>;
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { enableAdmin: false, me: undefined };
   }
 
-  return (
-    <div>
-      <Switch>
-        <Route path="/" exact component={HomeButtons} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/logscore" exact component={LogScore} />
-        <Route path="/myscores" exact component={MyScores} />
-        <Route path="/admin" exact component={Admin} />
-        <Route path="/admin/athlete*" exact component={AdminAthletes} />
-        <Route path="/admin/logscore" exact component={AdminLogScore} />
-        <Route path="/admin/exports" exact component={AdminExports} />
-      </Switch>
-    </div>
-  );
-};
+  async componentDidMount() {
+    DataAccess.getNoData("api/admin/amiadmin", () => {
+      this.setState({ enableAdmin: true });
+    });
 
-export default Home;
+    DataAccess.getData("api/user/me", () => {
+      DataAccess.getData("api/athlete/me", (me) => {
+        console.log(me);
+        this.setState({ me: me });
+      });
+    });
+  }
+
+  render() {
+    if (this.state.me)
+      return (
+        <div id="menu" role="main">
+          <img
+            className="image"
+            src="/images/SO_NorthDakota_Mark_resized.png"
+            alt="Special Olympics ND Logo"
+          ></img>
+          <div className="welcome">
+            {this.state.me != undefined && this.state.me.firstName != "" && (
+              <span>Welcome back {this.state.me?.firstName}!</span>
+            )}
+            {this.state.me != undefined && this.state.me.firstName == "" && (
+              <span>Start with setting up your profile!</span>
+            )}
+          </div>
+
+          <Button
+            emoji="😀"
+            onClick={() => this.props.history.push("/profile")}
+          >
+            My Profile
+          </Button>
+          <Button
+            emoji="📝"
+            onClick={() => this.props.history.push("/logscore")}
+          >
+            New Score Entry
+          </Button>
+          <Button
+            emoji="📜"
+            onClick={() => this.props.history.push("/myscores")}
+          >
+            My Scores
+          </Button>
+
+          {this.state.me.coach && (
+            <Button
+              emoji="💻"
+              onClick={() => this.props.history.push("/admin")}
+            >
+              Coach Menu
+            </Button>
+          )}
+          {this.state.enableAdmin && (
+            <Button
+              emoji="💻"
+              onClick={() => this.props.history.push("/admin")}
+            >
+              Admin Portal
+            </Button>
+          )}
+          <LogoutButton></LogoutButton>
+        </div>
+      );
+    else {
+      return <div>Loading</div>;
+    }
+  }
+}
+
+export default withAuth0(Home);

@@ -13,12 +13,14 @@ namespace ndso_bowling.Database
         public DbSet<Game> Games { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Athlete> Athletes { get; set; }
+        public DbSet<Coach> Coaches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Game>().ToTable("Games");
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Athlete>().ToTable("Athletes");
+            modelBuilder.Entity<Coach>().ToTable("Coaches");
         }
     }
 }

@@ -27,21 +27,6 @@ namespace ndso_bowling.Controllers
             _database = Database;
         }
 
-        [HttpGet]
-        public IActionResult GetAthlete(string first, string last, string pin)
-        {
-            first = first.ToLower();
-            last = last.ToLower();
-
-            var athlete = this._database.Athletes.Where(a => a.FirstName == first && a.LastName == last && a.Pin == pin).FirstOrDefault();
-            if (athlete == default)
-            {
-                return NotFound();
-            }
-
-            return Ok(athlete);
-        }
-
         [HttpGet("me")]
         public IActionResult GetMe()
         {
@@ -54,13 +39,11 @@ namespace ndso_bowling.Controllers
                 user.Athlete = new Athlete
                 {
                     FirstName = "",
-                    MiddleName = "",
                     LastName = "",
                     Birthday = "",
                     PhoneNumber = "",
                     Email = "",
-                    Pin = "",
-                    District = District.None
+                    City = ""
                 };
             }
 
@@ -88,9 +71,9 @@ namespace ndso_bowling.Controllers
             {
                 user.Athlete.LastName = athlete.LastName;
             }
-            if (athlete.MiddleName != null)
+            if (athlete.City != null)
             {
-                user.Athlete.MiddleName = athlete.MiddleName;
+                user.Athlete.City = athlete.City;
             }
             if (athlete.PhoneNumber != null)
             {
@@ -99,10 +82,6 @@ namespace ndso_bowling.Controllers
             if (athlete.Email != null)
             {
                 user.Athlete.Email = athlete.Email;
-            }
-            if (athlete.District >= 0)
-            {
-                user.Athlete.District = athlete.District;
             }
 
             this._database.SaveChanges();

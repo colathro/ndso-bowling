@@ -8,5 +8,7 @@ namespace ndso_bowling.Database
         [Key]
         public string Id { get; set; }
         public Athlete Athlete { get; set; }
+        public Coach Coach { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

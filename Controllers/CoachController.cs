@@ -1,77 +1,66 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Globalization;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using ndso_bowling.Database;
-using ndso_bowling.Enums;
+using System.Security.Claims;
 
 
 namespace ndso_bowling.Controllers
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
-    public class AdminController : ControllerBase
+    public class CoachController : ControllerBase
     {
 
-        private readonly ILogger<AdminController> _logger;
+        private readonly ILogger<CoachController> _logger;
         private readonly DatabaseConnection _database;
 
-        private string r(string s)
-        { // r for remove semicolons
-            if (s == null) { return ""; }
-            return s.Replace(';', ' ');
-        }
-
-        [HttpGet("GetScoreReport")]
-        public IActionResult DownloadScoresReport()
-        {
-            var games = this._database.Games.Include(g => g.Athlete).ToList();
-
-            string csv = "Id;Score;Location;Date;AthleteId" + Environment.NewLine;
-
-            foreach (Game g in games)
-            {
-                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete.Id.ToString())}" + Environment.NewLine;
-            }
-
-            return Ok(csv);
-        }
-
-        [HttpGet("GetAthleteReport")]
-        public IActionResult DownloadAthleteReport()
-        {
-            var athletes = this._database.Athletes.ToList();
-
-            string csv = "Id;FirstName;LastName;Birthday;PhoneNumber;Email;City" + Environment.NewLine;
-
-            foreach (Athlete a in athletes)
-            {
-                csv += $"{r(a.Id.ToString())};{r(a.FirstName)};{r(a.LastName)};{r(a.Birthday)};{r(a.PhoneNumber.ToString())};{r(a.Email)};{r(a.City)}" + Environment.NewLine;
-            }
-
-            return Ok(csv);
-        }
-
-        public AdminController(ILogger<AdminController> logger, DatabaseConnection Database)
+        public CoachController(ILogger<CoachController> logger, DatabaseConnection Database)
         {
             _logger = logger;
             _database = Database;
         }
 
+        private Coach GetAndValidateCoach()
+        {
+            var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var user = this._database.Users.FirstOrDefault(x => x.Id == userId);
+
+            if (user == default)
+            {
+                return null;
+            }
+
+            if (user.Coach == null)
+            {
+                return null;
+            }
+
+            return user.Coach;
+        }
+
         [HttpGet("Athlete")]
         public IActionResult GetAthlete(int id)
         {
+            var coach = this.GetAndValidateCoach();
+
+            if (coach == null)
+            {
+                return BadRequest();
+            }
+
             var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id);
 
             if (athlete == default)
             {
                 return NotFound();
+            }
+
+            if (athlete.Coach != coach)
+            {
+                return BadRequest();
             }
 
             return Ok(athlete);
@@ -80,7 +69,18 @@ namespace ndso_bowling.Controllers
         [HttpPut("Athlete")]
         public IActionResult UpdateAthlete([FromBody] Athlete athlete)
         {
+            var coach = this.GetAndValidateCoach();
+
+            if (coach == null)
+            {
+                return BadRequest();
+            }
+
             var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
+            if (athleteObject.Coach != coach)
+            {
+                return BadRequest();
+            }
 
             if (athlete.Birthday != null)
             {
@@ -116,6 +116,13 @@ namespace ndso_bowling.Controllers
         [HttpPost("RegisterAthlete")]
         public IActionResult RegisterAthlete([FromBody] Athlete athlete)
         {
+            var coach = this.GetAndValidateCoach();
+
+            if (coach == null)
+            {
+                return BadRequest();
+            }
+
             this._database.Athletes.Add(athlete);
             this._database.SaveChanges();
 
@@ -132,24 +139,19 @@ namespace ndso_bowling.Controllers
             return Ok();
         }
 
-        [HttpGet("AllAthletes")]
-        public IActionResult AllAthletes(string lastname)
+        [HttpGet("AthleteGames")]
+        public IActionResult GetAllGames(int id)
         {
-            var athletes = this._database.Athletes.Where(a => a.LastName.Contains(lastname)).ToList();
-            return Ok(athletes);
-        }
+            var coach = this.GetAndValidateCoach();
 
-        [HttpGet("GameFromAthlete")]
-        public IActionResult GetGameFromAthlete(int id)
-        {
-            var game = this._database.Games.Include(g => g.Athlete).Where(g => g.Athlete.Id == id);
-            return Ok(game);
-        }
+            if (coach == null)
+            {
+                return BadRequest();
+            }
 
-        [HttpGet("AllGames")]
-        public IActionResult GetAllGames()
-        {
-            var games = this._database.Games.Include(g => g.Athlete).ToList();
+            var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id && a.Coach == coach);
+
+            var games = this._database.Games.Where(g => g.Athlete == athlete).ToList();
             return Ok(games);
         }
     }

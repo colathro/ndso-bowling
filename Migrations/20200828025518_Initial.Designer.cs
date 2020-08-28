@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ndso_bowling.Database;
 
 namespace ndso_bowling.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    partial class DatabaseConnectionModelSnapshot : ModelSnapshot
+    [Migration("20200828025518_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +83,7 @@ namespace ndso_bowling.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches");
+                    b.ToTable("Coach");
                 });
 
             modelBuilder.Entity("ndso_bowling.Database.Game", b =>

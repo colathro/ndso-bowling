@@ -81,10 +81,6 @@ class LogScore extends Component {
       submit = false;
       this.state.game.location.inError = true;
     }
-    if (this.state.game.witness.value == "") {
-      submit = false;
-      this.state.game.witness.inError = true;
-    }
     return submit;
   }
 
