@@ -10,8 +10,8 @@ using ndso_bowling.Database;
 namespace ndso_bowling.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    [Migration("20200822204106_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200828025701_Initial1")]
+    partial class Initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,13 @@ namespace ndso_bowling.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Approved")
-                        .HasColumnType("int");
-
                     b.Property<string>("Birthday")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("District")
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CoachId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -46,18 +46,44 @@ namespace ndso_bowling.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MiddleName")
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
+
+                    b.ToTable("Athletes");
+                });
+
+            modelBuilder.Entity("ndso_bowling.Database.Coach", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Birthday")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pin")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Athletes");
+                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("ndso_bowling.Database.Game", b =>
@@ -70,14 +96,14 @@ namespace ndso_bowling.Migrations
                     b.Property<int?>("AthleteId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CoachId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Review")
-                        .HasColumnType("int");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
@@ -95,6 +121,8 @@ namespace ndso_bowling.Migrations
 
                     b.HasIndex("AthleteId");
 
+                    b.HasIndex("CoachId");
+
                     b.ToTable("Games");
                 });
 
@@ -106,11 +134,26 @@ namespace ndso_bowling.Migrations
                     b.Property<int?>("AthleteId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CoachId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AthleteId");
 
+                    b.HasIndex("CoachId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ndso_bowling.Database.Athlete", b =>
+                {
+                    b.HasOne("ndso_bowling.Database.Coach", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId");
                 });
 
             modelBuilder.Entity("ndso_bowling.Database.Game", b =>
@@ -118,6 +161,10 @@ namespace ndso_bowling.Migrations
                     b.HasOne("ndso_bowling.Database.Athlete", "Athlete")
                         .WithMany()
                         .HasForeignKey("AthleteId");
+
+                    b.HasOne("ndso_bowling.Database.Coach", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId");
                 });
 
             modelBuilder.Entity("ndso_bowling.Database.User", b =>
@@ -125,6 +172,10 @@ namespace ndso_bowling.Migrations
                     b.HasOne("ndso_bowling.Database.Athlete", "Athlete")
                         .WithMany()
                         .HasForeignKey("AthleteId");
+
+                    b.HasOne("ndso_bowling.Database.Coach", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId");
                 });
 #pragma warning restore 612, 618
         }

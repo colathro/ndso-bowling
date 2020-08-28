@@ -4,7 +4,7 @@ using ndso_bowling.Enums;
 
 namespace ndso_bowling.Database
 {
-    public class Athlete
+    public class Coach
     {
         [Key]
         public int Id { get; set; }
@@ -14,6 +14,5 @@ namespace ndso_bowling.Database
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string City { get; set; }
-        public Coach Coach { get; set; }
     }
 }

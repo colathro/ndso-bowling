@@ -27,23 +27,6 @@ namespace ndso_bowling.Controllers
             _database = Database;
         }
 
-        [HttpGet("games")]
-        public IActionResult GetGames(string first, string last, string pin)
-        {
-            first = first.ToLower();
-            last = last.ToLower();
-
-            var athlete = this._database.Athletes.Where(a => a.FirstName == first && a.LastName == last && a.Pin == pin).FirstOrDefault();
-            if (athlete == default)
-            {
-                return NotFound();
-            }
-
-            var games = this._database.Games.Where(g => g.Athlete == athlete).ToList();
-
-            return Ok(games);
-        }
-
         [HttpGet("mygames")]
         public IActionResult GetMyGames()
         {
@@ -62,7 +45,6 @@ namespace ndso_bowling.Controllers
 
             var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
 
-            game.Review = ReviewStatus.NotReviewed;
             game.Athlete = athlete;
             this._database.Games.Add(game);
 

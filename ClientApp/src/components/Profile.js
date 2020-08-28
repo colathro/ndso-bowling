@@ -31,7 +31,7 @@ class Profile extends Component {
         birthday: "",
         phoneNumber: "",
         email: "",
-        district: 0,
+        city: "",
       };
     }
 
@@ -187,100 +187,17 @@ class Profile extends Component {
               ></Input>
             </div>
             <div className="field">
-              <span className="field-title">District</span>
-              <Select
-                emoji="🗺"
+              <span className="field-title">City</span>
+              <Input
+                emoji="🏙️"
                 disabled={!this.state.editable}
+                type="email"
+                defaultValue={this.state.athlete?.city}
                 onChange={(e) => {
-                  this.state.athlete.district = parseInt(e.target.value);
+                  this.state.athlete.city = e.target.value;
                 }}
-                ariaLabel="districts field"
-              >
-                <option
-                  value={0}
-                  selected={this.state.athlete?.district == 0}
-                  aria-label="none"
-                >
-                  None
-                </option>
-                <option
-                  value={1}
-                  selected={this.state.athlete?.district == 1}
-                  aria-label="Williston - 1"
-                >
-                  Williston - 1
-                </option>
-                <option
-                  value={2}
-                  selected={this.state.athlete?.district == 2}
-                  aria-label="Minot - 2"
-                >
-                  Minot - 2
-                </option>
-                <option
-                  value={3}
-                  selected={this.state.athlete?.district == 3}
-                  aria-label="Devils Lake - 3"
-                >
-                  Devils Lake - 3
-                </option>
-                <option
-                  value={5}
-                  selected={this.state.athlete?.district == 5}
-                  aria-label="Grand Forks - 5"
-                >
-                  Grand Forks - 5
-                </option>
-                <option
-                  value={6}
-                  selected={this.state.athlete?.district == 6}
-                  aria-label="Fargo - 6"
-                >
-                  Fargo - 6
-                </option>
-                <option
-                  value={7}
-                  selected={this.state.athlete?.district == 7}
-                  aria-label="Wahpeton - 7"
-                >
-                  Wahpeton - 7
-                </option>
-                <option
-                  value={8}
-                  selected={this.state.athlete?.district == 8}
-                  aria-label="Valley City - 8"
-                >
-                  Valley City - 8
-                </option>
-                <option
-                  value={9}
-                  selected={this.state.athlete?.district == 9}
-                  aria-label="Jamestown - 9"
-                >
-                  Jamestown - 9
-                </option>
-                <option
-                  value={10}
-                  selected={this.state.athlete?.district == 10}
-                  aria-label="Bismarck - 10"
-                >
-                  Bismarck - 10
-                </option>
-                <option
-                  value={11}
-                  selected={this.state.athlete?.district == 11}
-                  aria-label="Mandan - 11"
-                >
-                  Mandan - 11
-                </option>
-                <option
-                  value={12}
-                  selected={this.state.athlete?.district == 12}
-                  aria-label="Dickinson - 12"
-                >
-                  Dickinson - 12
-                </option>
-              </Select>
+                ariaLabel="email field"
+              ></Input>
             </div>
             <div className="field">
               <span className="field-title">Email</span>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Switch, Route } from "react-router";
-import AdminAthleteApprovals from "./AdminAthleteApprovals";
 import AdminAllAthletes from "./AdminAllAthletes";
 import AdminRegisterAthlete from "./AdminRegisterAthlete";
 import AdminAthlete from "./AdminAthlete";
@@ -25,12 +24,6 @@ const AdminAthleteMain = (props) => {
           onClick={() => props.history.push("/admin/athletes/allathletes")}
         >
           All Athletes
-        </Button>
-        <Button
-          emoji="🏋️‍♀️"
-          onClick={() => props.history.push("/admin/athletes/athleteapprovals")}
-        >
-          Athlete Approvals
         </Button>
       </div>
     </div>
@@ -59,11 +52,6 @@ class AdminAthletes extends Component {
             path="/admin/athletes/allathletes"
             exact
             component={AdminAllAthletes}
-          />
-          <Route
-            path="/admin/athletes/athleteapprovals"
-            exact
-            component={AdminAthleteApprovals}
           />
           <Route
             path="/admin/athletes/scoresbyathlete*"

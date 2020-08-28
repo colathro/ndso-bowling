@@ -30,6 +30,7 @@ namespace ndso_bowling.Controllers
         public IActionResult GetMe()
         {
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userRole = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
             if (userId == null)
             {
@@ -40,8 +41,13 @@ namespace ndso_bowling.Controllers
 
             if (user == null)
             {
-                user = new User { Id = userId };
+                user = new User { Id = userId, IsAdmin = false };
                 this._database.Users.Add(user);
+            }
+
+            if (userRole == "Admin")
+            {
+                user.IsAdmin = true;
             }
 
             this._database.SaveChanges();
