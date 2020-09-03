@@ -12,6 +12,9 @@ import Home from "./components/Home";
 import { withAuth0 } from "@auth0/auth0-react";
 import DataAccess from "./utils/DataAccess";
 import Login from "./components/Login";
+import Coach from "./components/Coach";
+import CoachAthletes from "./components/CoachAthletes";
+import CoachLogScore from "./components/CoachLogScore";
 
 import "./App.scss";
 
@@ -45,6 +48,9 @@ class App extends Component {
           <Route path="/profile" exact component={Profile} />
           <Route path="/logscore" exact component={LogScore} />
           <Route path="/myscores" exact component={MyScores} />
+          <Route path="/coach" exact component={Coach} />
+          <Route path="/coach/athlete*" exact component={CoachAthletes} />
+          <Route path="/coach/logscore" exact component={CoachLogScore} />
           <Route path="/admin" exact component={Admin} />
           <Route path="/admin/athlete*" exact component={AdminAthletes} />
           <Route path="/admin/logscore" exact component={AdminLogScore} />

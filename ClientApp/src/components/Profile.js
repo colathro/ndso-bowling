@@ -109,16 +109,9 @@ class Profile extends Component {
     }
   }
 
-  async approve(id) {
+  async makeCoach(id) {
     this.setState({ loading: true });
-    DataAccess.postData(`api/admin/approveathlete?id=${id}`, null, () => {
-      this.props.history.goBack();
-    });
-  }
-
-  async deny(id) {
-    this.setState({ loading: true });
-    DataAccess.postData(`api/admin/denyathlete?id=${id}`, null, () => {
+    DataAccess.postData(`api/admin/makecoach`, this.state.target, () => {
       this.props.history.goBack();
     });
   }
@@ -235,45 +228,35 @@ class Profile extends Component {
                 </SmallButton>
               </div>
             )}
-            {this.state.approvalButton && (
-              <div style={{ display: "flex" }}>
-                <SmallButton
-                  emoji="❌"
-                  onClick={() => {
-                    this.deny(this.state.target);
-                  }}
-                >
-                  Deny
-                </SmallButton>
-                <SmallButton
-                  emoji="✅"
-                  primary={true}
-                  onClick={() => {
-                    this.approve(this.state.target);
-                  }}
-                >
-                  Approve
-                </SmallButton>
-              </div>
-            )}
             {this.state.updating && (
-              <div style={{ display: "flex" }}>
-                <SmallButton
-                  onClick={() =>
-                    this.props.history.push(
-                      `/admin/athletes/scoresbyathlete?id=${this.state.target}`
-                    )
-                  }
-                >
-                  View Scores
-                </SmallButton>
-                <SmallButton
-                  onClick={() => {
-                    // build out logging a score on behalf of a user
-                  }}
-                >
-                  Log New Score
-                </SmallButton>
+              <div>
+                <div style={{ display: "flex" }}>
+                  <SmallButton
+                    onClick={() =>
+                      this.props.history.push(
+                        `/admin/athletes/scoresbyathlete?id=${this.state.target}`
+                      )
+                    }
+                  >
+                    View Scores
+                  </SmallButton>
+                  <SmallButton
+                    onClick={() => {
+                      // build out logging a score on behalf of a user
+                    }}
+                  >
+                    Log New Score
+                  </SmallButton>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <SmallButton
+                    onClick={() => {
+                      this.makeCoach();
+                    }}
+                  >
+                    Make Coach
+                  </SmallButton>
+                </div>
               </div>
             )}
           </div>
