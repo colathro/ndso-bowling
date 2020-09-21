@@ -117,21 +117,21 @@ class AthleteScoreTable extends Component {
         <div id="c1"></div>
         <Divider />
         <Row justify="space-around">
-          <Col span={7} offset={1}>
+          <Col span={6} offset={1}>
             <Statistic
               title="14 day average"
               value={this.average()}
               precision={0}
             ></Statistic>
           </Col>
-          <Col span={7} offset={1}>
+          <Col span={6} offset={1}>
             <Statistic
               precision={0}
               title="todays average"
               value={this.todayAverage()}
             ></Statistic>
           </Col>
-          <Col span={7} offset={1}>
+          <Col span={6} offset={1}>
             <Statistic
               precision={0}
               title="all time best"
