@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
-import Profile from "./Profile";
+import Profile from "../Profile";
 
-class CoachRegisterAthlete extends Component {
+class AdminRegisterAthlete extends Component {
   constructor(props) {
     super(props);
   }
@@ -18,4 +18,4 @@ class CoachRegisterAthlete extends Component {
   }
 }
 
-export default withAuth0(CoachRegisterAthlete);
+export default withAuth0(AdminRegisterAthlete);

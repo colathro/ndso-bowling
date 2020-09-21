@@ -4,19 +4,22 @@ import History from "./utils/History";
 import Profile from "./components/Profile";
 import LogScore from "./components/LogScore";
 import MyScores from "./components/MyScores";
-import Admin from "./components/Admin";
-import AdminAthletes from "./components/AdminAthletes";
-import AdminExports from "./components/AdminExports";
-import AdminLogScore from "./components/AdminLogScore";
+import Admin from "./components/admin/Admin";
+import AdminAthletes from "./components/admin/AdminAthletes";
+import AdminExports from "./components/admin/AdminExports";
+import AdminLogScore from "./components/admin/AdminLogScore";
 import Home from "./components/Home";
 import { withAuth0 } from "@auth0/auth0-react";
 import DataAccess from "./utils/DataAccess";
 import Login from "./components/Login";
-import Coach from "./components/Coach";
-import CoachAthletes from "./components/CoachAthletes";
-import CoachLogScore from "./components/CoachLogScore";
+import Coach from "./components/coach/Coach";
+import CoachAthletes from "./components/coach/CoachAthletes";
+import CoachLogScore from "./components/coach/CoachLogScore";
+import { Layout, Button, Row, Col, Space } from "antd";
 
-import "./App.scss";
+import "./App.less";
+
+const { Header, Content } = Layout;
 
 class App extends Component {
   constructor(props) {
@@ -42,7 +45,6 @@ class App extends Component {
 
     return (
       <Router history={History}>
-        <div className="background"></div>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" exact component={Profile} />

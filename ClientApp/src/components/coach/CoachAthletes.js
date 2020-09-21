@@ -4,8 +4,8 @@ import { Switch, Route } from "react-router";
 import CoachAllAthletes from "./CoachAllAthletes";
 import CoachRegisterAthlete from "./CoachRegisterAthlete";
 import CoachAthlete from "./CoachAthlete";
-import BackBar from "./ui/BackBar";
-import Button from "./ui/Button";
+import BackBar from "../ui/BackBar";
+import Button from "../ui/Button";
 import CoachScoresByAthlete from "./CoachScoresByAthlete";
 
 const CoachAthleteMain = (props) => {

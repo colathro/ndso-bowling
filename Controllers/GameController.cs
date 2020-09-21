@@ -34,22 +34,29 @@ namespace ndso_bowling.Controllers
 
             var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
 
-            var games = this._database.Games.Where(a => a.Athlete == athlete).OrderByDescending(g => g.Date).ToList();
+            var games = this._database.Games.Where(a => a.Athlete == athlete).OrderBy(g => g.Date).ToList();
             return Ok(games);
         }
 
         [HttpPost("submitmygame")]
         public IActionResult SubmitGame([FromBody] Game game)
         {
-            var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (this.ModelState.IsValid)
+            {
+                var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
+                var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
 
-            game.Athlete = athlete;
-            this._database.Games.Add(game);
+                game.Athlete = athlete;
+                this._database.Games.Add(game);
 
-            this._database.SaveChanges();
-            return Ok();
+                this._database.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ import { Switch, Route } from "react-router";
 import AdminAllAthletes from "./AdminAllAthletes";
 import AdminRegisterAthlete from "./AdminRegisterAthlete";
 import AdminAthlete from "./AdminAthlete";
-import BackBar from "./ui/BackBar";
-import Button from "./ui/Button";
+import BackBar from "../ui/BackBar";
+import Button from "../ui/Button";
 import AdminScoresByAthlete from "./AdminScoresByAthlete";
 
 const AdminAthleteMain = (props) => {

@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "./ui/Button";
-import BackBar from "./ui/BackBar";
+import Button from "../ui/Button";
+import BackBar from "../ui/BackBar";
 
 const Admin = (props) => {
   return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LogScore from "./LogScore";
+import LogScore from "../LogScore";
 
 class AdminLogScore extends Component {
   constructor(props) {

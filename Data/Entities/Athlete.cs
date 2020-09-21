@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System;
-using ndso_bowling.Enums;
 
 namespace ndso_bowling.Database
 {
@@ -8,12 +6,24 @@ namespace ndso_bowling.Database
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(36)]
         public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(36)]
         public string LastName { get; set; }
         public string Birthday { get; set; }
+
+        [Phone]
         public string PhoneNumber { get; set; }
+
+        [EmailAddress]
         public string Email { get; set; }
+
         public string City { get; set; }
+
         public Coach Coach { get; set; }
     }
 }

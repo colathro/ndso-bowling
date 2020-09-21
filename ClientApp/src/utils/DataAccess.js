@@ -3,6 +3,8 @@ import { showError } from "../components/ui/Modal";
 class DataAccessClient {
   constructor() {
     this.Auth = null;
+    this.RefetchScores = null;
+    this.RefetchPlayer = null;
   }
 
   async postData(uri, data, callback) {
