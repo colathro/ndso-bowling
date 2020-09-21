@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import DataAccess from "../utils/DataAccess";
-import List from "./ui/List";
-import BackBar from "./ui/BackBar";
-import Input from "./ui/Input";
-import SmallButton from "./ui/SmallButton";
+import DataAccess from "../../utils/DataAccess";
+import List from "../ui/List";
+import BackBar from "../ui/BackBar";
+import Input from "../ui/Input";
+import SmallButton from "../ui/SmallButton";
 
 class AdminAllAthletes extends Component {
   constructor(props) {

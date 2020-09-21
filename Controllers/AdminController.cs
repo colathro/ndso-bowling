@@ -80,46 +80,60 @@ namespace ndso_bowling.Controllers
         [HttpPut("Athlete")]
         public IActionResult UpdateAthlete([FromBody] Athlete athlete)
         {
-            var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
+            if (this.ModelState.IsValid)
+            {
+                var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
 
-            if (athlete.Birthday != null)
-            {
-                athleteObject.Birthday = athlete.Birthday;
-            }
-            if (athlete.FirstName != null)
-            {
-                athleteObject.FirstName = athlete.FirstName;
-            }
-            if (athlete.LastName != null)
-            {
-                athleteObject.LastName = athlete.LastName;
-            }
-            if (athlete.City != null)
-            {
-                athleteObject.City = athlete.City;
-            }
-            if (athlete.PhoneNumber != null)
-            {
-                athleteObject.PhoneNumber = athlete.PhoneNumber;
-            }
-            if (athlete.Email != null)
-            {
-                athleteObject.Email = athlete.Email;
-            }
+                if (athlete.Birthday != null)
+                {
+                    athleteObject.Birthday = athlete.Birthday;
+                }
+                if (athlete.FirstName != null)
+                {
+                    athleteObject.FirstName = athlete.FirstName;
+                }
+                if (athlete.LastName != null)
+                {
+                    athleteObject.LastName = athlete.LastName;
+                }
+                if (athlete.City != null)
+                {
+                    athleteObject.City = athlete.City;
+                }
+                if (athlete.PhoneNumber != null)
+                {
+                    athleteObject.PhoneNumber = athlete.PhoneNumber;
+                }
+                if (athlete.Email != null)
+                {
+                    athleteObject.Email = athlete.Email;
+                }
 
-            this._database.SaveChanges();
+                this._database.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
 
 
         [HttpPost("RegisterAthlete")]
         public IActionResult RegisterAthlete([FromBody] Athlete athlete)
         {
-            this._database.Athletes.Add(athlete);
-            this._database.SaveChanges();
+            if (this.ModelState.IsValid)
+            {
+                this._database.Athletes.Add(athlete);
+                this._database.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
 
         [HttpPost("MakeCoach")]

@@ -69,64 +69,78 @@ namespace ndso_bowling.Controllers
         [HttpPut("Athlete")]
         public IActionResult UpdateAthlete([FromBody] Athlete athlete)
         {
-            var coach = this.GetAndValidateCoach();
+            if (this.ModelState.IsValid)
+            {
+                var coach = this.GetAndValidateCoach();
 
-            if (coach == null)
-            {
-                return BadRequest();
-            }
+                if (coach == null)
+                {
+                    return BadRequest();
+                }
 
-            var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
-            if (athleteObject.Coach != coach)
-            {
-                return BadRequest();
-            }
+                var athleteObject = this._database.Athletes.FirstOrDefault(a => a.Id == athlete.Id);
+                if (athleteObject.Coach != coach)
+                {
+                    return BadRequest();
+                }
 
-            if (athlete.Birthday != null)
-            {
-                athleteObject.Birthday = athlete.Birthday;
-            }
-            if (athlete.FirstName != null)
-            {
-                athleteObject.FirstName = athlete.FirstName;
-            }
-            if (athlete.LastName != null)
-            {
-                athleteObject.LastName = athlete.LastName;
-            }
-            if (athlete.City != null)
-            {
-                athleteObject.City = athlete.City;
-            }
-            if (athlete.PhoneNumber != null)
-            {
-                athleteObject.PhoneNumber = athlete.PhoneNumber;
-            }
-            if (athlete.Email != null)
-            {
-                athleteObject.Email = athlete.Email;
-            }
+                if (athlete.Birthday != null)
+                {
+                    athleteObject.Birthday = athlete.Birthday;
+                }
+                if (athlete.FirstName != null)
+                {
+                    athleteObject.FirstName = athlete.FirstName;
+                }
+                if (athlete.LastName != null)
+                {
+                    athleteObject.LastName = athlete.LastName;
+                }
+                if (athlete.City != null)
+                {
+                    athleteObject.City = athlete.City;
+                }
+                if (athlete.PhoneNumber != null)
+                {
+                    athleteObject.PhoneNumber = athlete.PhoneNumber;
+                }
+                if (athlete.Email != null)
+                {
+                    athleteObject.Email = athlete.Email;
+                }
 
-            this._database.SaveChanges();
+                this._database.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
 
 
         [HttpPost("RegisterAthlete")]
         public IActionResult RegisterAthlete([FromBody] Athlete athlete)
         {
-            var coach = this.GetAndValidateCoach();
-
-            if (coach == null)
+            if (this.ModelState.IsValid)
             {
-                return BadRequest();
+                var coach = this.GetAndValidateCoach();
+
+                if (coach == null)
+                {
+                    return BadRequest();
+                }
+
+                this._database.Athletes.Add(athlete);
+                this._database.SaveChanges();
+
+                return Ok();
             }
-
-            this._database.Athletes.Add(athlete);
-            this._database.SaveChanges();
-
-            return Ok();
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
 
         [HttpPost("MakeCoach")]

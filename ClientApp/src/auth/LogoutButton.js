@@ -1,20 +1,21 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import SmallButton from "../components/ui/SmallButton";
+import { Typography } from "antd";
+
+const { Link } = Typography;
 
 function LogoutButton() {
   const { isAuthenticated, logout } = useAuth0();
 
   return (
     isAuthenticated && (
-      <SmallButton
-        emoji="👋"
+      <Link
         onClick={() => {
           logout({ returnTo: window.location.origin });
         }}
       >
         Log out
-      </SmallButton>
+      </Link>
     )
   );
 }

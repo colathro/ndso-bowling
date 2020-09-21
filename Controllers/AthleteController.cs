@@ -59,6 +59,20 @@ namespace ndso_bowling.Controllers
 
             var user = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId);
 
+            if (user.Athlete == null)
+            {
+                if (ModelState.IsValid)
+                {
+                    user.Athlete = athlete;
+                    this._database.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+
             if (athlete.Birthday != null)
             {
                 user.Athlete.Birthday = athlete.Birthday;

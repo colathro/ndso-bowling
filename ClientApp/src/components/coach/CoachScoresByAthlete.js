@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as QueryString from "query-string";
-import DataAccess from "../utils/DataAccess";
-import List from "./ui/List";
-import BackBar from "./ui/BackBar";
+import DataAccess from "../../utils/DataAccess";
+import List from "../ui/List";
+import BackBar from "../ui/BackBar";
 
 class CoachScoresByAthlete extends React.Component {
   constructor(props) {

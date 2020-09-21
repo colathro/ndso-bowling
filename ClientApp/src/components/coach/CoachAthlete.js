@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Profile from "./Profile";
+import Profile from "../Profile";
 
 class AdminAthlete extends Component {
   constructor(props) {

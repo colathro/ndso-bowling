@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +38,7 @@ namespace ndso_bowling.Controllers
                 return NotFound();
             }
 
-            var user = this._database.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var user = this._database.Users.Include(u => u.Athlete).Where(u => u.Id == userId).FirstOrDefault();
 
             if (user == null)
             {
