@@ -9,6 +9,7 @@ ReactDOM.render(
     clientId="9c2Os4Hnr81V5AdcQ2hXl9jD7CX0ltfv"
     redirectUri={window.location.origin}
     audience={window.location.origin}
+    cacheLocation="localstorage"
   >
     <App />
   </Auth0Provider>,

@@ -40,6 +40,7 @@ class App extends Component {
     }
 
     if (!this.props.auth0.isAuthenticated) {
+      console.log(this.props.auth0);
       return <Login></Login>;
     }
 

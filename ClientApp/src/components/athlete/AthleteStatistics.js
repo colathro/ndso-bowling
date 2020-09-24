@@ -134,7 +134,7 @@ class AthleteScoreTable extends Component {
           <Col span={6} offset={1}>
             <Statistic
               precision={0}
-              title="all time best"
+              title="best ever score"
               value={this.best()}
             ></Statistic>
           </Col>
