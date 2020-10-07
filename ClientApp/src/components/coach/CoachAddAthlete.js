@@ -4,7 +4,7 @@ import { Button, Modal, Form, Input, DatePicker, Row, Col } from "antd";
 import { PhoneOutlined, MailOutlined, HomeOutlined } from "@ant-design/icons";
 import moment from "moment";
 
-class AthleteEditProfile extends Component {
+class CoachAddAthlete extends Component {
   constructor(props) {
     super(props);
     let formRef = React.createRef();
@@ -18,8 +18,9 @@ class AthleteEditProfile extends Component {
   };
 
   handleSubmit = (e) => {
-    DataAccess.putData(
-      "api/athlete/update",
+    console.log(e);
+    DataAccess.postData(
+      "api/coach/registerathlete",
       {
         firstName: e.firstName,
         lastName: e.lastName,
@@ -32,7 +33,7 @@ class AthleteEditProfile extends Component {
         this.setState({
           visible: false,
         });
-        DataAccess.RefetchPlayer();
+        DataAccess.RefetchAthletes();
       }
     );
   };
@@ -47,10 +48,10 @@ class AthleteEditProfile extends Component {
     return (
       <>
         <Button type="secondary" onClick={this.showModal}>
-          Edit Profile
+          Add Athlete
         </Button>
         <Modal
-          title="Edit Profile"
+          title="Add Athlete"
           visible={this.state.visible}
           onOk={this.handleSubmit}
           onCancel={this.handleCancel}
@@ -63,7 +64,6 @@ class AthleteEditProfile extends Component {
               rules={[
                 { required: true, message: "Please input your first name!" },
               ]}
-              initialValue={this.state.user.athlete.firstName}
             >
               <Input placeholder="First Name" />
             </Form.Item>
@@ -72,7 +72,6 @@ class AthleteEditProfile extends Component {
               rules={[
                 { required: true, message: "Please input your last name!" },
               ]}
-              initialValue={this.state.user.athlete.lastName}
             >
               <Input placeholder="Last Name" />
             </Form.Item>
@@ -84,23 +83,16 @@ class AthleteEditProfile extends Component {
                   message: "The input is not valid E-mail!",
                 },
               ]}
-              initialValue={this.state.user.athlete.email}
             >
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
-            <Form.Item name="city" initialValue={this.state.user.athlete.city}>
+            <Form.Item name="city">
               <Input prefix={<HomeOutlined />} placeholder="City" />
             </Form.Item>
-            <Form.Item
-              name="phoneNumber"
-              initialValue={this.state.user.athlete.phoneNumber}
-            >
+            <Form.Item name="phoneNumber">
               <Input prefix={<PhoneOutlined />} placeholder="Phone Number" />
             </Form.Item>
-            <Form.Item
-              name="birthday"
-              initialValue={moment(this.state.user.athlete.birthday)}
-            >
+            <Form.Item name="birthday">
               <DatePicker placeholder="Birthday" />
             </Form.Item>
             <Form.Item>
@@ -122,25 +114,6 @@ class AthleteEditProfile extends Component {
       </>
     );
   }
-
-  formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 8,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-    },
-  };
 }
 
-export default AthleteEditProfile;
+export default CoachAddAthlete;

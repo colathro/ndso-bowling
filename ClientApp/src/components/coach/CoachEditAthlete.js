@@ -4,7 +4,7 @@ import { Button, Modal, Form, Input, DatePicker, Row, Col } from "antd";
 import { PhoneOutlined, MailOutlined, HomeOutlined } from "@ant-design/icons";
 import moment from "moment";
 
-class AthleteEditProfile extends Component {
+class CoachEditAthlete extends Component {
   constructor(props) {
     super(props);
     let formRef = React.createRef();
@@ -18,9 +18,11 @@ class AthleteEditProfile extends Component {
   };
 
   handleSubmit = (e) => {
+    console.log(e);
     DataAccess.putData(
-      "api/athlete/update",
+      "api/coach/athlete",
       {
+        id: this.props.athlete.id,
         firstName: e.firstName,
         lastName: e.lastName,
         email: e.email,
@@ -32,7 +34,7 @@ class AthleteEditProfile extends Component {
         this.setState({
           visible: false,
         });
-        DataAccess.RefetchPlayer();
+        DataAccess.RefetchAthletes();
       }
     );
   };
@@ -47,10 +49,12 @@ class AthleteEditProfile extends Component {
     return (
       <>
         <Button type="secondary" onClick={this.showModal}>
-          Edit Profile
+          Edit
         </Button>
         <Modal
-          title="Edit Profile"
+          title={
+            this.props.athlete.firstName + " " + this.props.athlete.lastName
+          }
           visible={this.state.visible}
           onOk={this.handleSubmit}
           onCancel={this.handleCancel}
@@ -60,46 +64,46 @@ class AthleteEditProfile extends Component {
           <Form ref={this.state.ref} onFinish={this.handleSubmit}>
             <Form.Item
               name="firstName"
+              initialValue={this.props.athlete.firstName}
               rules={[
                 { required: true, message: "Please input your first name!" },
               ]}
-              initialValue={this.state.user.athlete.firstName}
             >
               <Input placeholder="First Name" />
             </Form.Item>
             <Form.Item
               name="lastName"
+              initialValue={this.props.athlete.lastName}
               rules={[
                 { required: true, message: "Please input your last name!" },
               ]}
-              initialValue={this.state.user.athlete.lastName}
             >
               <Input placeholder="Last Name" />
             </Form.Item>
             <Form.Item
               name="email"
+              initialValue={this.props.athlete.email}
               rules={[
                 {
                   type: "email",
                   message: "The input is not valid E-mail!",
                 },
               ]}
-              initialValue={this.state.user.athlete.email}
             >
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
-            <Form.Item name="city" initialValue={this.state.user.athlete.city}>
+            <Form.Item name="city" initialValue={this.props.athlete.city}>
               <Input prefix={<HomeOutlined />} placeholder="City" />
             </Form.Item>
             <Form.Item
               name="phoneNumber"
-              initialValue={this.state.user.athlete.phoneNumber}
+              initialValue={this.props.athlete.phoneNumber}
             >
               <Input prefix={<PhoneOutlined />} placeholder="Phone Number" />
             </Form.Item>
             <Form.Item
               name="birthday"
-              initialValue={moment(this.state.user.athlete.birthday)}
+              initialValue={moment(this.props.athlete.birthday)}
             >
               <DatePicker placeholder="Birthday" />
             </Form.Item>
@@ -122,25 +126,6 @@ class AthleteEditProfile extends Component {
       </>
     );
   }
-
-  formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 8,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-    },
-  };
 }
 
-export default AthleteEditProfile;
+export default CoachEditAthlete;

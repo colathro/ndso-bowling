@@ -1,69 +1,74 @@
 import React, { Component } from "react";
-import { withAuth0 } from "@auth0/auth0-react";
-import { Switch, Route } from "react-router";
-import CoachAllAthletes from "./CoachAllAthletes";
-import CoachRegisterAthlete from "./CoachRegisterAthlete";
-import CoachAthlete from "./CoachAthlete";
-import BackBar from "../ui/BackBar";
-import Button from "../ui/Button";
-import CoachScoresByAthlete from "./CoachScoresByAthlete";
+import DataAccess from "../../utils/DataAccess";
+import CoachViewAthlete from "./CoachViewAthlete";
+import CoachScoreSubmit from "./CoachScoreSubmit";
+import CoachAddAthlete from "./CoachAddAthlete";
+import { Divider, Table, Row, Col } from "antd";
 
-const CoachAthleteMain = (props) => {
-  return (
-    <div>
-      <BackBar history={props.history}>Athlete Actions</BackBar>
-      <div id="menu">
-        <Button
-          emoji="🧗‍♂️"
-          onClick={() => props.history.push("/coachh/athletes/register")}
-        >
-          Register Athlete
-        </Button>
-        <Button
-          emoji="🚴‍♂️"
-          onClick={() => props.history.push("/Coach/athletes/allathletes")}
-        >
-          All Athletes
-        </Button>
-      </div>
-    </div>
-  );
-};
+const columns = [
+  {
+    title: "Name",
+    key: "1",
+    sorter: function (a, b) {
+      if (a.firstName + a.lastName > b.firstName + b.lastName) {
+        return 1;
+      }
+      if (a.firstName + a.lastName < b.firstName + b.lastName) {
+        return -1;
+      }
+      return 0;
+    },
+    render: (i) => <div>{i.firstName + " " + i.lastName}</div>,
+  },
+  {
+    title: "Action",
+    key: "operation",
+    fixed: "right",
+    width: 100,
+    render: (a) => <CoachViewAthlete athlete={a}></CoachViewAthlete>,
+  },
+];
 
 class CoachAthletes extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { loading: true, athletes: [] };
+    this.state = { athletes: null };
+    DataAccess.RefetchAthletes = this.getMyAthletes.bind(this);
   }
 
-  async componentDidMount() {}
+  async getMyAthletes() {
+    DataAccess.getData("api/coach/athletes", this.setAthletes.bind(this));
+  }
+
+  setAthletes(body) {
+    this.setState({ athletes: body });
+  }
+
+  async componentDidMount() {
+    this.getMyAthletes();
+  }
 
   render() {
     return (
       <div>
-        <Switch>
-          <Route
-            path="/coach/athletes/register"
-            exact
-            component={CoachRegisterAthlete}
-          />
-          <Route
-            path="/coach/athletes/allathletes"
-            exact
-            component={CoachAllAthletes}
-          />
-          <Route
-            path="/coach/athletes/scoresbyathlete*"
-            exact
-            component={CoachScoresByAthlete}
-          />
-          <Route path="/coach/athletes" exact component={CoachAthleteMain} />
-          <Route path="/coach/athlete" exact component={CoachAthlete} />
-        </Switch>
+        <Row justify="space-around">
+          <Col>
+            <CoachAddAthlete user={this.state.user}></CoachAddAthlete>
+          </Col>
+          <Col>
+            {this.state.athletes != null && (
+              <CoachScoreSubmit
+                athletes={this.state.athletes}
+                user={this.props.user}
+              />
+            )}
+          </Col>
+        </Row>
+        <Divider />
+        <Table dataSource={this.state.athletes} columns={columns} />
       </div>
     );
   }
 }
 
-export default withAuth0(CoachAthletes);
+export default CoachAthletes;

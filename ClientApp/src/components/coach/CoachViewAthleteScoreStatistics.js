@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Statistic, Row, Col, Divider } from "antd";
 import { Chart } from "@antv/g2";
 
-class AthleteScoreTable extends Component {
+class CoachViewAthleteScoreStatistics extends Component {
   constructor(props) {
     super(props);
   }
@@ -153,4 +153,4 @@ function check(val) {
   }
 }
 
-export default AthleteScoreTable;
+export default CoachViewAthleteScoreStatistics;

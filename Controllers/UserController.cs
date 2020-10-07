@@ -38,7 +38,7 @@ namespace ndso_bowling.Controllers
                 return NotFound();
             }
 
-            var user = this._database.Users.Include(u => u.Athlete).Where(u => u.Id == userId).FirstOrDefault();
+            var user = this._database.Users.Include(u => u.Athlete).Include(u => u.Coach).Where(u => u.Id == userId).FirstOrDefault();
 
             if (user == null)
             {

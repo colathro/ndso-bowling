@@ -26,7 +26,7 @@ namespace ndso_bowling.Controllers
         private Coach GetAndValidateCoach()
         {
             var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            var user = this._database.Users.FirstOrDefault(x => x.Id == userId);
+            var user = this._database.Users.Include(u => u.Coach).FirstOrDefault(x => x.Id == userId);
 
             if (user == default)
             {
@@ -64,6 +64,91 @@ namespace ndso_bowling.Controllers
             }
 
             return Ok(athlete);
+        }
+
+        [HttpPost("AthleteGame")]
+        public IActionResult SubmitGame([FromBody] Game game, int id)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var coach = this.GetAndValidateCoach();
+
+                if (coach == null)
+                {
+                    return BadRequest();
+                }
+
+                var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id && a.Coach == coach);
+
+                if (athlete == default)
+                {
+                    return NotFound();
+                }
+
+                if (athlete.Coach != coach)
+                {
+                    return BadRequest();
+                }
+
+                game.Athlete = athlete;
+
+                this._database.Games.Add(game);
+                this._database.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
+        }
+
+        [HttpGet("Athletes")]
+        public IActionResult GetAthletes()
+        {
+            var coach = this.GetAndValidateCoach();
+
+            if (coach == null)
+            {
+                return BadRequest();
+            }
+
+            var athletes = this._database.Athletes.Where(a => a.Coach == coach);
+
+            if (athletes == default)
+            {
+                return NotFound();
+            }
+
+            return Ok(athletes);
+        }
+
+        [HttpPost("DeleteAthlete")]
+        public IActionResult GetAthletes(int id)
+        {
+            var coach = this.GetAndValidateCoach();
+
+            if (coach == null)
+            {
+                return BadRequest();
+            }
+
+            var athlete = this._database.Athletes.FirstOrDefault(a => a.Coach == coach && a.Id == id);
+
+            if (athlete == default)
+            {
+                return NotFound();
+            }
+
+            var games = this._database.Games.Where(g => g.Athlete == athlete);
+
+            this._database.Games.RemoveRange(games);
+
+            this._database.Athletes.Remove(athlete);
+
+            this._database.SaveChanges();
+
+            return Ok();
         }
 
         [HttpPut("Athlete")]
@@ -131,6 +216,7 @@ namespace ndso_bowling.Controllers
                 {
                     return BadRequest();
                 }
+                athlete.Coach = coach;
 
                 this._database.Athletes.Add(athlete);
                 this._database.SaveChanges();
@@ -167,6 +253,57 @@ namespace ndso_bowling.Controllers
 
             var games = this._database.Games.Where(g => g.Athlete == athlete).ToList();
             return Ok(games);
+        }
+
+        [HttpPut("register")]
+        public IActionResult RegisterCoach([FromBody] Coach coach)
+        {
+            var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var user = this._database.Users.Include(u => u.Coach).FirstOrDefault(u => u.Id == userId);
+
+            if (user.Coach == null)
+            {
+                if (ModelState.IsValid)
+                {
+                    user.Coach = coach;
+                    this._database.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+
+            if (coach.Birthday != null)
+            {
+                user.Coach.Birthday = coach.Birthday;
+            }
+            if (coach.FirstName != null)
+            {
+                user.Coach.FirstName = coach.FirstName;
+            }
+            if (coach.LastName != null)
+            {
+                user.Coach.LastName = coach.LastName;
+            }
+            if (coach.City != null)
+            {
+                user.Coach.City = coach.City;
+            }
+            if (coach.PhoneNumber != null)
+            {
+                user.Coach.PhoneNumber = coach.PhoneNumber;
+            }
+            if (coach.Email != null)
+            {
+                user.Coach.Email = coach.Email;
+            }
+
+            this._database.SaveChanges();
+
+            return Ok();
         }
     }
 }

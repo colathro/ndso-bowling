@@ -6,6 +6,7 @@ import AdminHome from "./admin/AdminHome";
 import AthleteHome from "./athlete/AthleteHome";
 import { Spin } from "antd";
 import SignUpHome from "./signup/SignUpHome";
+import CoachSignUpHome from "./signup/CoachSignUpHome";
 
 class Home extends Component {
   constructor(props) {
@@ -28,7 +29,21 @@ class Home extends Component {
   render() {
     console.log(this.state.user);
     if (this.state.user) {
-      if (this.state.user.athlete?.firstName == null) {
+      if (
+        document.location.href.indexOf("coach") != -1 &&
+        this.state.user.coach?.firstName == null
+      ) {
+        console.log(this.state.user);
+        return (
+          <CoachSignUpHome
+            history={this.props.history}
+            user={this.state.user}
+          ></CoachSignUpHome>
+        );
+      } else if (
+        this.state.user.athlete?.firstName == null &&
+        this.state.user.coach?.firstName == null
+      ) {
         return (
           <SignUpHome history={this.props.history} user={this.state.user} />
         );
