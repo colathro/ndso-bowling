@@ -96,7 +96,7 @@ class CoachSignUpHome extends Component {
         email: e.email,
         phoneNumber: e.phoneNumber,
         city: e.city,
-        birthday: e.birthday._d.toDateString(),
+        birthday: e.birthday?._d.toDateString(),
       },
       () => {
         DataAccess.RefetchPlayer();
