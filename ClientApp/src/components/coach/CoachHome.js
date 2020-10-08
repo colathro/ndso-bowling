@@ -4,6 +4,7 @@ import { Button, Col, Divider, Layout, Row } from "antd";
 import CoachScoreSubmit from "./CoachScoreSubmit";
 import FooterBar from "../ui/FooterBar";
 import CoachAthletes from "./CoachAthletes";
+import CoachProfile from "./CoachProfile";
 
 const { Header } = Layout;
 
@@ -27,6 +28,7 @@ class CoachHome extends Component {
             <Col></Col>
           </Row>
         </Header>
+        <CoachProfile user={this.props.user}></CoachProfile>
         <Divider />
         <CoachAthletes user={this.state.user}></CoachAthletes>
         <FooterBar />
