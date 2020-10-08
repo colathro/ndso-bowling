@@ -11,6 +11,7 @@ import {
   Form,
   Input,
   DatePicker,
+  Divider,
 } from "antd";
 import FooterBar from "../ui/FooterBar";
 import { PhoneOutlined, MailOutlined, HomeOutlined } from "@ant-design/icons";
@@ -42,24 +43,20 @@ const steps = [
     content: (
       <div>
         <div className="herocontainer">
-          <Row justify="center" gutter={[0, 64]}>
-            <img
-              className="heroimage"
-              src="images/svg/undraw_web_devices_ad58.svg"
-            ></img>
-          </Row>
+          <img
+            className="heroimage"
+            src="images/svg/undraw_web_devices_ad58.svg"
+          ></img>
         </div>
         <Title level={4}>
           You can access and enter your bowling scores from any deviced
           connected to internet!
         </Title>
         <div className="herocontainer">
-          <Row justify="center" gutter={[0, 64]}>
-            <img
-              className="heroimage"
-              src="images/svg/undraw_progress_overview_2dik.svg"
-            ></img>
-          </Row>
+          <img
+            className="heroimage"
+            src="images/svg/undraw_progress_overview_2dik.svg"
+          ></img>
         </div>
         <Title level={4}>
           We keep track of all your scores so you can see yourself improve!
@@ -96,7 +93,7 @@ class SignUpHome extends Component {
         email: e.email,
         phoneNumber: e.phoneNumber,
         city: e.city,
-        birthday: e.birthday._d.toDateString(),
+        birthday: e.birthday?._d.toDateString(),
       },
       () => {
         DataAccess.RefetchPlayer();
@@ -118,33 +115,36 @@ class SignUpHome extends Component {
     const { current } = this.state;
     return (
       <div id="signup">
-        <div className="content">
-          <Row justify="center">
-            <Col>
-              <Row align="middle" justify="center">
-                {current < 2 && <Col>{steps[current].content}</Col>}
-                {current === 2 && <Col>{this.form}</Col>}
-              </Row>
-              <Row justify="end" gutter={[16, 24]}>
-                <Col>
-                  {current > 0 && !(current === steps.length - 1) && (
-                    <Button
-                      style={{ margin: "0 8px" }}
-                      onClick={() => this.prev()}
-                    >
-                      Previous
-                    </Button>
-                  )}
-                  {current < steps.length - 1 && (
-                    <Button type="primary" onClick={() => this.next()}>
-                      Next
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </div>
+        <Row justify="center">
+          <Col>
+            <Row align="middle" justify="center">
+              {current < 2 && <Col>{steps[current].content}</Col>}
+              {current === 2 && <Col>{this.form}</Col>}
+            </Row>
+            <Row>
+              <Col>
+                <Divider></Divider>
+              </Col>
+            </Row>
+            <Row justify="end" gutter={[16, 24]}>
+              <Col>
+                {current > 0 && !(current === steps.length - 1) && (
+                  <Button
+                    style={{ margin: "0 8px" }}
+                    onClick={() => this.prev()}
+                  >
+                    Previous
+                  </Button>
+                )}
+                {current < steps.length - 1 && (
+                  <Button type="primary" onClick={() => this.next()}>
+                    Next
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <Row className="footer" justify="center">
           <Col>
             <Steps progressDot size="small" current={current}>
@@ -152,9 +152,9 @@ class SignUpHome extends Component {
                 <Step key={item.title} />
               ))}
             </Steps>
-            <FooterBar />
           </Col>
         </Row>
+        <FooterBar />
       </div>
     );
   }
