@@ -31,9 +31,10 @@ const steps = [
             src="images/svg/undraw_positive_attitude_xaae.svg"
           ></img>
         </div>
-        <Title>Congrats! </Title>
+        <Title>Welcome Coach!</Title>
         <Title level={4}>
-          You are now signed in; but we have to tell you some things first!
+          You are now signed in as a coach; but we have to tell you some things
+          first!
         </Title>
       </div>
     ),
@@ -43,23 +44,19 @@ const steps = [
     content: (
       <div>
         <div className="herocontainer">
-          <Row justify="center" gutter={[0, 64]}>
-            <img
-              className="heroimage"
-              src="images/svg/undraw_web_devices_ad58.svg"
-            ></img>
-          </Row>
+          <img
+            className="heroimage"
+            src="images/svg/undraw_web_devices_ad58.svg"
+          ></img>
         </div>
         <Title level={4}>
           Register and manage as many athletes as you'd like!
         </Title>
         <div className="herocontainer">
-          <Row justify="center" gutter={[0, 64]}>
-            <img
-              className="heroimage"
-              src="images/svg/undraw_progress_overview_2dik.svg"
-            ></img>
-          </Row>
+          <img
+            className="heroimage"
+            src="images/svg/undraw_progress_overview_2dik.svg"
+          ></img>
         </div>
         <Title level={4}>
           Log scores for your athletes, and see their progress over time!
@@ -118,33 +115,31 @@ class CoachSignUpHome extends Component {
     const { current } = this.state;
     return (
       <div id="signup">
-        <div className="content">
-          <Row justify="center">
-            <Col>
-              <Row align="middle" justify="center">
-                {current < 2 && <Col>{steps[current].content}</Col>}
-                {current === 2 && <Col>{this.form}</Col>}
-              </Row>
-              <Row justify="end" gutter={[16, 24]}>
-                <Col>
-                  {current > 0 && !(current === steps.length - 1) && (
-                    <Button
-                      style={{ margin: "0 8px" }}
-                      onClick={() => this.prev()}
-                    >
-                      Previous
-                    </Button>
-                  )}
-                  {current < steps.length - 1 && (
-                    <Button type="primary" onClick={() => this.next()}>
-                      Next
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </div>
+        <Row justify="center">
+          <Col>
+            <Row align="middle" justify="center">
+              {current < 2 && <Col>{steps[current].content}</Col>}
+              {current === 2 && <Col>{this.form}</Col>}
+            </Row>
+            <Row justify="end" gutter={[16, 24]}>
+              <Col>
+                {current > 0 && !(current === steps.length - 1) && (
+                  <Button
+                    style={{ margin: "0 8px" }}
+                    onClick={() => this.prev()}
+                  >
+                    Previous
+                  </Button>
+                )}
+                {current < steps.length - 1 && (
+                  <Button type="primary" onClick={() => this.next()}>
+                    Next
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <Row className="footer" justify="center">
           <Col>
             <Steps progressDot size="small" current={current}>
@@ -152,9 +147,9 @@ class CoachSignUpHome extends Component {
                 <Step key={item.title} />
               ))}
             </Steps>
-            <FooterBar />
           </Col>
         </Row>
+        <FooterBar />
       </div>
     );
   }
