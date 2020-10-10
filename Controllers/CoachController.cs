@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 using ndso_bowling.Database;
 using System.Security.Claims;
 
@@ -250,6 +251,11 @@ namespace ndso_bowling.Controllers
             }
 
             var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id && a.Coach == coach);
+
+            if (athlete == null)
+            {
+                return BadRequest("Not valid athlete.");
+            }
 
             var games = this._database.Games.Where(g => g.Athlete == athlete).ToList();
             return Ok(games);

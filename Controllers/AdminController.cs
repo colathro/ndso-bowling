@@ -149,7 +149,16 @@ namespace ndso_bowling.Controllers
         [HttpGet("AllAthletes")]
         public IActionResult AllAthletes(string lastname)
         {
-            var athletes = this._database.Athletes.Where(a => a.LastName.Contains(lastname)).ToList();
+            List<Athlete> athletes;
+            if (lastname == null)
+            {
+                athletes = this._database.Athletes.ToList();
+            }
+            else
+            {
+                athletes = this._database.Athletes.Where(a => a.LastName.Contains(lastname)).ToList();
+            }
+
             return Ok(athletes);
         }
 
@@ -165,6 +174,62 @@ namespace ndso_bowling.Controllers
         {
             var games = this._database.Games.Include(g => g.Athlete).ToList();
             return Ok(games);
+        }
+
+        [HttpPost("DeleteAthlete")]
+        public IActionResult GetAthletes(int id)
+        {
+            var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id);
+
+            if (athlete == default)
+            {
+                return NotFound();
+            }
+
+            var games = this._database.Games.Where(g => g.Athlete == athlete);
+
+            this._database.Games.RemoveRange(games);
+
+            this._database.Athletes.Remove(athlete);
+
+            this._database.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPost("AthleteGame")]
+        public IActionResult SubmitGame([FromBody] Game game, int id)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id);
+
+                if (athlete == default)
+                {
+                    return NotFound();
+                }
+
+                var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var userRole = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+
+                if (userId == null)
+                {
+                    return NotFound();
+                }
+
+                var user = this._database.Users.Include(u => u.Athlete).Include(u => u.Coach).Where(u => u.Id == userId).FirstOrDefault();
+
+                game.Athlete = athlete;
+
+                this._database.Games.Add(game);
+                this._database.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
         }
     }
 }

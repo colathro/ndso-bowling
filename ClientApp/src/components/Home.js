@@ -70,7 +70,11 @@ class Home extends Component {
         );
       }
     } else {
-      return <Spin size="large"></Spin>;
+      return (
+        <div className="loader">
+          <Spin size="large"></Spin>
+        </div>
+      );
     }
   }
 }

@@ -1,69 +1,91 @@
 import React, { Component } from "react";
-import { withAuth0 } from "@auth0/auth0-react";
-import { Switch, Route } from "react-router";
-import AdminAllAthletes from "./AdminAllAthletes";
-import AdminRegisterAthlete from "./AdminRegisterAthlete";
-import AdminAthlete from "./AdminAthlete";
-import BackBar from "../ui/BackBar";
-import Button from "../ui/Button";
-import AdminScoresByAthlete from "./AdminScoresByAthlete";
-
-const AdminAthleteMain = (props) => {
-  return (
-    <div>
-      <BackBar history={props.history}>Athlete Actions</BackBar>
-      <div id="menu">
-        <Button
-          emoji="🧗‍♂️"
-          onClick={() => props.history.push("/admin/athletes/register")}
-        >
-          Register Athlete
-        </Button>
-        <Button
-          emoji="🚴‍♂️"
-          onClick={() => props.history.push("/admin/athletes/allathletes")}
-        >
-          All Athletes
-        </Button>
-      </div>
-    </div>
-  );
-};
+import DataAccess from "../../utils/DataAccess";
+import AdminViewAthlete from "./AdminViewAthlete";
+import AdminScoreSubmit from "./AdminScoreSubmit";
+import AdminAddAthlete from "./AdminAddAthlete";
+import AdminAthletesFilter from "./AdminAthletesFilter";
+import { Divider, Table, Row, Col, Input } from "antd";
 
 class AdminAthletes extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { loading: true, athletes: [] };
+    this.state = { athletes: null, filter: "" };
+    DataAccess.RefetchAthletes = () => {
+      this.getMyAthletes(this.state.filter);
+    };
   }
 
-  async componentDidMount() {}
+  async getMyAthletes(filter) {
+    DataAccess.getData(
+      `api/admin/allathletes?lastname=${filter}`,
+      this.setAthletes.bind(this)
+    );
+  }
+
+  setAthletes(body) {
+    this.setState({ athletes: body });
+  }
+
+  setFilter(filter) {
+    this.setState({ filter: filter });
+  }
+
+  async componentDidMount() {
+    this.getMyAthletes("");
+  }
 
   render() {
     return (
       <div>
-        <Switch>
-          <Route
-            path="/admin/athletes/register"
-            exact
-            component={AdminRegisterAthlete}
-          />
-          <Route
-            path="/admin/athletes/allathletes"
-            exact
-            component={AdminAllAthletes}
-          />
-          <Route
-            path="/admin/athletes/scoresbyathlete*"
-            exact
-            component={AdminScoresByAthlete}
-          />
-          <Route path="/admin/athletes" exact component={AdminAthleteMain} />
-          <Route path="/admin/athlete" exact component={AdminAthlete} />
-        </Switch>
+        <Row justify="end" gutter={[8, 8]}>
+          <Col>
+            <AdminAddAthlete user={this.state.user}></AdminAddAthlete>
+          </Col>
+          <Col>
+            {this.state.athletes != null && (
+              <AdminScoreSubmit
+                athletes={this.state.athletes}
+                user={this.props.user}
+              />
+            )}
+          </Col>
+        </Row>
+        <Row justify="end" gutter={[8, 8]}>
+          <Col>
+            <AdminAthletesFilter
+              callback={this.getMyAthletes.bind(this)}
+              setFilter={this.setFilter.bind(this)}
+            ></AdminAthletesFilter>
+          </Col>
+        </Row>
+        <Table dataSource={this.state.athletes} columns={columns} />
       </div>
     );
   }
 }
 
-export default withAuth0(AdminAthletes);
+const columns = [
+  {
+    title: "Name",
+    key: "1",
+    sorter: function (a, b) {
+      if (a.firstName + a.lastName > b.firstName + b.lastName) {
+        return 1;
+      }
+      if (a.firstName + a.lastName < b.firstName + b.lastName) {
+        return -1;
+      }
+      return 0;
+    },
+    render: (i) => <div>{i.firstName + " " + i.lastName}</div>,
+  },
+  {
+    title: "Action",
+    key: "operation",
+    fixed: "right",
+    width: 100,
+    render: (a) => <AdminViewAthlete athlete={a}></AdminViewAthlete>,
+  },
+];
+
+export default AdminAthletes;

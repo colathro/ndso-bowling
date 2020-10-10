@@ -1,5 +1,3 @@
-import { showError } from "../components/ui/Modal";
-
 class DataAccessClient {
   constructor() {
     this.Auth = null;
@@ -20,7 +18,6 @@ class DataAccessClient {
     })
       .then(async (response) => {
         if (response.status != 200) {
-          showError();
         }
       })
       .then(() => {
@@ -41,7 +38,6 @@ class DataAccessClient {
     })
       .then(async (response) => {
         if (response.status != 200) {
-          showError();
         }
       })
       .then(() => {
@@ -60,7 +56,6 @@ class DataAccessClient {
     })
       .then(async (response) => {
         if (response.status != 200) {
-          showError();
         }
         var object = response.json();
         return object;
