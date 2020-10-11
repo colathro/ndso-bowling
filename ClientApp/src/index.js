@@ -7,7 +7,7 @@ ReactDOM.render(
   <Auth0Provider
     domain="colathro.us.auth0.com"
     clientId="9c2Os4Hnr81V5AdcQ2hXl9jD7CX0ltfv"
-    redirectUri={window.location.origin}
+    redirectUri={window.location.href}
     audience={window.location.origin}
     cacheLocation="localstorage"
   >

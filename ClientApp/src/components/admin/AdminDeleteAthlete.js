@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DataAccess from "../../utils/DataAccess";
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal, Typography, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
@@ -28,6 +28,7 @@ class AdminDeleteAthlete extends Component {
           visible: false,
         });
         this.props.callback();
+        message.success("Successfully Deleted Athlete!");
         DataAccess.RefetchAthletes();
       }
     );

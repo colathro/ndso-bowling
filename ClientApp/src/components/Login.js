@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button, Typography, Layout } from "antd";
+import { Button, Typography, Layout, Row, Col } from "antd";
 const { Header, Footer, Content } = Layout;
 
 const { Title } = Typography;
@@ -10,21 +10,16 @@ const Login = () => {
 
   return (
     <Layout role="main">
-      <Layout id="login">
-        <Content>
-          <Title level={2}>
-            welcome to the North Dakota Special Olympics bowling app.
-          </Title>
-          <Title level={3}>login to get started.</Title>
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => loginWithRedirect()}
-          >
-            Login or Register
-          </Button>
-        </Content>
-      </Layout>
+      <Content className="landing">
+        <img src="images/inverted_ndso.png"></img>
+        <img></img>
+        <Title level={3} className="welcome">
+          Welcome to the North Dakota Special Olympics bowling app.
+        </Title>
+        <Button type="primary" size="large" onClick={() => loginWithRedirect()}>
+          Login or Register
+        </Button>
+      </Content>
       <Footer></Footer>
     </Layout>
   );
