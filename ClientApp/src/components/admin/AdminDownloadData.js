@@ -43,10 +43,22 @@ class AdminDownloadData extends Component {
           >
             <Row gutter={[8, 8]}>
               <Col>
-                <Button>Download Athletes</Button>
+                <Button
+                  onClick={() => {
+                    DataAccess.downloadAthletes();
+                  }}
+                >
+                  Download Athletes
+                </Button>
               </Col>
               <Col>
-                <Button>Download Games</Button>
+                <Button
+                  onClick={() => {
+                    DataAccess.downloadScores();
+                  }}
+                >
+                  Download Games
+                </Button>
               </Col>
             </Row>
           </Modal>

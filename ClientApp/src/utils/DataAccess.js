@@ -79,6 +79,44 @@ class DataAccessClient {
       }
     });
   }
+
+  async downloadAthletes() {
+    fetch("api/admin/GetAthleteReport", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await this.Auth.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+      },
+    }).then((response) => {
+      response.blob().then((blob) => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = "athletes.csv";
+        a.click();
+      });
+    });
+  }
+
+  async downloadScores() {
+    fetch("api/admin/GetScoreReport", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await this.Auth.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+      },
+    }).then((response) => {
+      response.blob().then((blob) => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = "scores.csv";
+        a.click();
+      });
+    });
+  }
 }
 
 var DataAccess = new DataAccessClient();

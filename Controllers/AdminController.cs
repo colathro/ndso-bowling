@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using ndso_bowling.Database;
 using ndso_bowling.Enums;
 
@@ -33,11 +34,11 @@ namespace ndso_bowling.Controllers
         {
             var games = this._database.Games.Include(g => g.Athlete).ToList();
 
-            string csv = "Id;Score;Location;Date;AthleteId" + Environment.NewLine;
+            string csv = "Id;Score;Location;Date;AthleteId;Witness;WitnessPhone" + Environment.NewLine;
 
             foreach (Game g in games)
             {
-                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete.Id.ToString())}" + Environment.NewLine;
+                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete?.Id.ToString())};{r(g.Witness)};{r(g.WitnessPhone)}" + Environment.NewLine;
             }
 
             return Ok(csv);
