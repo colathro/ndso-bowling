@@ -25,6 +25,7 @@ const columns = [
   },
 ];
 
+
 class AdminViewAthleteScores extends Component {
   constructor(props) {
     super(props);
