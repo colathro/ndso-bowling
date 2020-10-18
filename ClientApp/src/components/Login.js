@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Typography, Layout, Row, Col } from "antd";
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 const { Title } = Typography;
 
