@@ -54,9 +54,13 @@ class AthleteScoreSubmit extends Component {
   render() {
     return (
       <>
-        <Button type="primary" onClick={this.showModal}>
-          New Score Entry
-        </Button>
+        <Row justify="end">
+          <Col>
+            <Button style={{}} type="primary" onClick={this.showModal}>
+              New Score Entry
+            </Button>
+          </Col>
+        </Row>
         <Modal
           title="Submit Score"
           visible={this.state.visible}

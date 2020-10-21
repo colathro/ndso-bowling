@@ -18,20 +18,20 @@ class AthleteHome extends Component {
     return (
       <div id="athletehome">
         <Header>
-          <Row justify="space-between">
-            <Col>
+          <Row justify="center">
+            <Col xs={{ span: 12 }} lg={{ span: 9 }}>
               <img
                 id="logo"
                 src="images/SO_NorthDakota_Mark_red-black.jpg"
               ></img>
             </Col>
-            <Col>
+            <Col xs={{ span: 12 }} lg={{ span: 9 }}>
               <AthleteScoreSubmit />
             </Col>
           </Row>
         </Header>
-        <Row>
-          <Col>
+        <Row justify="center">
+          <Col xs={{ span: 23 }} lg={{ span: 18 }}>
             <AthleteProfile user={this.props.user}></AthleteProfile>
             <Divider />
             <AthleteScoreTable></AthleteScoreTable>
