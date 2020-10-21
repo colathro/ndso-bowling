@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
-import DataAccess from "../../utils/DataAccess";
-import { Button, Col, Divider, Layout, Row, BackTop } from "antd";
+import { Col, Divider, Layout, Row } from "antd";
 import AthleteScoreTable from "./AthleteScoreTable";
 import AthleteProfile from "./AthleteProfile";
 import AthleteScoreSubmit from "./AthleteScoreSubmit";
@@ -31,9 +30,13 @@ class AthleteHome extends Component {
             </Col>
           </Row>
         </Header>
-        <AthleteProfile user={this.props.user}></AthleteProfile>
-        <Divider />
-        <AthleteScoreTable></AthleteScoreTable>
+        <Row>
+          <Col>
+            <AthleteProfile user={this.props.user}></AthleteProfile>
+            <Divider />
+            <AthleteScoreTable></AthleteScoreTable>
+          </Col>
+        </Row>
         <FooterBar />
       </div>
     );

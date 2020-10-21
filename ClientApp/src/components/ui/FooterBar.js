@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Row, Col, Typography } from "antd";
 import LogoutButton from "../../auth/LogoutButton";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const { Footer } = Layout;
 const { Text, Link } = Typography;
@@ -17,6 +18,9 @@ class FooterBar extends Component {
         <Row justify="space-around">
           <Col>
             <LogoutButton />
+          </Col>
+          <Col>
+            <PrivacyPolicy></PrivacyPolicy>
           </Col>
           <Col>
             <Text disabled>Copyright © 2020 Special Olympics</Text>

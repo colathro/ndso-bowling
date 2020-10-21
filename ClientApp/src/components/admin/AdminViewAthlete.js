@@ -58,18 +58,18 @@ class AdminViewAthlete extends Component {
                 </Col>
               </Row>
             }
-            size="small"
+            size="large"
           >
-            <Descriptions.Item label="Birthday">
+            <Descriptions.Item label="Birthday" span={3}>
               {this.props.athlete.birthday}
             </Descriptions.Item>
-            <Descriptions.Item label="Phone Number">
+            <Descriptions.Item label="Phone Number" span={3}>
               {this.props.athlete.phoneNumber}
             </Descriptions.Item>
-            <Descriptions.Item label="Email">
+            <Descriptions.Item label="Email" span={3}>
               {this.props.athlete.email}
             </Descriptions.Item>
-            <Descriptions.Item label="City">
+            <Descriptions.Item label="City" span={3}>
               {this.props.athlete.city}
             </Descriptions.Item>
           </Descriptions>
