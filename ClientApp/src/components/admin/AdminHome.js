@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
-import { Button, Col, Divider, Layout, Row, Tabs } from "antd";
+import { Button, Col, Divider, Layout, Row, Tabs, Typography } from "antd";
 import FooterBar from "../ui/FooterBar";
 import AdminAddAthlete from "./AdminAddAthlete";
 import AdminAthletes from "./AdminAthletes";
 import AdminDownloadData from "./AdminDownloadData";
 
+import { CoffeeOutlined } from "@ant-design/icons";
+
 const { Header } = Layout;
+const { Title } = Typography;
 const { TabPane } = Tabs;
 
 class AdminHome extends Component {
@@ -42,11 +45,13 @@ class AdminHome extends Component {
           </TabPane>
           <TabPane tab="Coaches" key="2">
             <Row justify="center">
-              <Col xs={{ span: 23 }} lg={{ span: 18 }}>
-                <AdminDownloadData></AdminDownloadData>
-                <Divider></Divider>
-                <AdminAthletes user={this.state.user}></AdminAthletes>
-                <FooterBar />
+              <Col>
+                <Title>Check back later!</Title>
+              </Col>
+            </Row>
+            <Row justify="center">
+              <Col>
+                <CoffeeOutlined style={{ fontSize: "80px" }} />
               </Col>
             </Row>
           </TabPane>
