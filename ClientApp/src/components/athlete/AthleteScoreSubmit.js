@@ -9,6 +9,7 @@ import {
   DatePicker,
   Row,
   Col,
+  message,
 } from "antd";
 import { PhoneOutlined } from "@ant-design/icons";
 
@@ -40,6 +41,7 @@ class AthleteScoreSubmit extends Component {
         this.setState({
           visible: false,
         });
+        message.success("Nice Score!");
         DataAccess.RefetchScores();
       }
     );

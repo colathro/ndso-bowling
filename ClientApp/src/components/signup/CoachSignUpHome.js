@@ -25,12 +25,14 @@ const steps = [
     title: "First",
     content: (
       <div>
-        <div className="herocontainer">
-          <img
-            className="heroimage"
-            src="images/svg/undraw_positive_attitude_xaae.svg"
-          ></img>
-        </div>
+        <Row justify="center">
+          <Col>
+            <img
+              className="heroimage"
+              src="images/svg/undraw_positive_attitude_xaae.svg"
+            ></img>
+          </Col>
+        </Row>
         <Title>Welcome Coach!</Title>
         <Title level={4}>
           You are now signed in as a coach; but we have to tell you some things
@@ -43,21 +45,25 @@ const steps = [
     title: "Second",
     content: (
       <div>
-        <div className="herocontainer">
-          <img
-            className="heroimage"
-            src="images/svg/undraw_web_devices_ad58.svg"
-          ></img>
-        </div>
+        <Row justify="center">
+          <Col>
+            <img
+              className="heroimage"
+              src="images/svg/undraw_web_devices_ad58.svg"
+            ></img>
+          </Col>
+        </Row>
         <Title level={4}>
           Register and manage as many athletes as you'd like!
         </Title>
-        <div className="herocontainer">
-          <img
-            className="heroimage"
-            src="images/svg/undraw_progress_overview_2dik.svg"
-          ></img>
-        </div>
+        <Row justify="center">
+          <Col>
+            <img
+              className="heroimage"
+              src="images/svg/undraw_progress_overview_2dik.svg"
+            ></img>
+          </Col>
+        </Row>
         <Title level={4}>
           Log scores for your athletes, and see their progress over time!
         </Title>
