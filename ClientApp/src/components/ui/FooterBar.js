@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Layout, Row, Col, Typography } from "antd";
 import LogoutButton from "../../auth/LogoutButton";
 import PrivacyPolicy from "./PrivacyPolicy";
+import ReportIssue from "./ReportIssue";
 
 const { Footer } = Layout;
 const { Text, Link } = Typography;
@@ -18,6 +19,9 @@ class FooterBar extends Component {
         <Row justify="space-around">
           <Col>
             <LogoutButton />
+          </Col>
+          <Col>
+            <ReportIssue />
           </Col>
           <Col>
             <PrivacyPolicy></PrivacyPolicy>

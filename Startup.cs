@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
+using Octokit;
 using ndso_bowling.Database;
 
 namespace ndso_bowling
@@ -25,6 +26,10 @@ namespace ndso_bowling
         {
             services.AddDbContext<DatabaseConnection>(options =>
                 options.UseSqlServer(Configuration["AZURE_SQL_CONNECTION_STRING"]));
+
+            services.AddSingleton<IGitHubClient>(new GitHubClient(new ProductHeaderValue("NDSO")){
+                Credentials = new Credentials(Configuration["GITHUB"])
+            });
 
             services.AddAuthentication(options =>
             {
