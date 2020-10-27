@@ -44,7 +44,6 @@ class AthleteScoreTable extends Component {
         newScores[score.date].push(score);
       }
     });
-    console.log(newScores);
 
     var output = [];
     Object.keys(newScores).forEach((key) => {
@@ -144,8 +143,6 @@ class AthleteScoreTable extends Component {
 }
 
 function check(val) {
-  console.log(val);
-  console.log(this);
   if (val === this.date) {
     return true;
   } else {

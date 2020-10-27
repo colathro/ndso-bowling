@@ -17,17 +17,23 @@ class AthleteScoreSubmit extends Component {
   constructor(props) {
     super(props);
     let formRef = React.createRef();
-    this.state = { visible: false, user: this.props.user, ref: formRef };
+    this.state = {
+      visible: false,
+      user: this.props.user,
+      ref: formRef,
+    };
+    this.submitted = false;
   }
 
   showModal = () => {
+    this.submitted = false;
     this.setState({
       visible: true,
     });
   };
 
   handleSubmit = (e) => {
-    console.log(e);
+    this.submitted = true;
     DataAccess.postData(
       "api/game/submitmygame",
       {
@@ -66,12 +72,20 @@ class AthleteScoreSubmit extends Component {
         <Modal
           title="Submit Score"
           visible={this.state.visible}
-          onOk={this.handleSubmit}
           onCancel={this.handleCancel}
           footer={null}
           maskClosable={false}
+          destroyOnClose={true}
         >
-          <Form ref={this.state.ref} onFinish={this.handleSubmit}>
+          <Form
+            ref={this.state.ref}
+            onFinish={(e) => {
+              if (this.submitted) {
+                return;
+              }
+              this.handleSubmit(e);
+            }}
+          >
             <Form.Item
               name="score"
               rules={[
@@ -120,25 +134,6 @@ class AthleteScoreSubmit extends Component {
       </>
     );
   }
-
-  formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 8,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-    },
-  };
 }
 
 export default AthleteScoreSubmit;
