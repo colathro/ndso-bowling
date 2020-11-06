@@ -34,11 +34,11 @@ namespace ndso_bowling.Controllers
         {
             var games = this._database.Games.Include(g => g.Athlete).ToList();
 
-            string csv = "Id;Score;Location;Date;AthleteId;Witness;WitnessPhone" + Environment.NewLine;
+            string csv = "Id;Score;Location;Date;AthleteId;Witness;WitnessPhone;FirstName;LastName;City" + Environment.NewLine;
 
             foreach (Game g in games)
             {
-                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{r(g.Date)};{r(g.Athlete?.Id.ToString())};{r(g.Witness)};{r(g.WitnessPhone)}" + Environment.NewLine;
+                csv += $"{r(g.Id.ToString())};{r(g.Score.ToString())};{r(g.Location)};{DateTime.Parse(r(g.Date)).ToString("d")};{r(g.Athlete?.Id.ToString())};{r(g.Witness)};{r(g.WitnessPhone)};{r(g.Athlete?.FirstName)};{r(g.Athlete?.LastName)};{r(g.Athlete?.City)}" + Environment.NewLine;
             }
 
             return Ok(csv);
