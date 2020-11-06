@@ -1,31 +1,36 @@
 import React, { Component } from "react";
 import DataAccess from "../../utils/DataAccess";
-import { Divider, Table } from "antd";
+import { Divider, Table, Space } from "antd";
 import AthleteStatistics from "./AthleteStatistics";
-
-const columns = [
-  {
-    title: "Date",
-    dataIndex: "date",
-    key: "date",
-    sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
-    sortDirections: ["descend", "ascend"],
-  },
-  {
-    title: "Score",
-    dataIndex: "score",
-    key: "score",
-    sorter: (a, b) => a.score - b.score,
-    sortDirections: ["descend", "ascend"],
-  },
-  {
-    title: "Location",
-    dataIndex: "location",
-    key: "location",
-  },
-];
+import AthleteScoreView from "./AthleteScoreView";
 
 class AthleteScoreTable extends Component {
+  columns = [
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+      sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Score",
+      dataIndex: "score",
+      key: "score",
+      sorter: (a, b) => a.score - b.score,
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <AthleteScoreView game={record}></AthleteScoreView>
+        </Space>
+      ),
+    },
+  ];
+
   constructor(props) {
     super(props);
     this.state = { scores: null };
@@ -51,7 +56,15 @@ class AthleteScoreTable extends Component {
           <AthleteStatistics scores={this.state.scores}></AthleteStatistics>
         )}
         <Divider />
-        <Table dataSource={this.state.scores} columns={columns} />
+        <Table
+          dataSource={this.state.scores}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {}, // click row
+            };
+          }}
+          columns={this.columns}
+        />
       </div>
     );
   }

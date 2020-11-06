@@ -117,6 +117,26 @@ class DataAccessClient {
       });
     });
   }
+
+  async deleteData(uri, data, callback) {
+    fetch(uri, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await this.Auth.getAccessTokenSilently({
+          audience: window.location.origin,
+        })}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(async (response) => {
+        if (response.status != 200) {
+        }
+      })
+      .then(() => {
+        callback();
+      });
+  }
 }
 
 var DataAccess = new DataAccessClient();

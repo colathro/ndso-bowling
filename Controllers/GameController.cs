@@ -58,5 +58,32 @@ namespace ndso_bowling.Controllers
                 return BadRequest(this.ModelState);
             }
         }
+
+        [HttpDelete("deletemygame")]
+        public IActionResult DeleteGame([FromQuery] int gameId)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var userId = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                var athlete = this._database.Users.Include(u => u.Athlete).FirstOrDefault(u => u.Id == userId).Athlete;
+
+                var game = this._database.Games.FirstOrDefault(g => g.Athlete == athlete && g.Id == gameId);
+
+                if (game == default){
+                    return NotFound("Could not find game.");
+                }
+
+                this._database.Games.Remove(game);
+                this._database.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
+
+        }
     }
 }
