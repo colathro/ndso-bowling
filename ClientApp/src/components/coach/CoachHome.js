@@ -19,7 +19,7 @@ class CoachHome extends Component {
       <div id="coachhome">
         <Header>
           <Row justify="space-between">
-            <Col>
+            <Col xs={{ span: 12 }} lg={{ span: 9 }}>
               <img
                 id="logo"
                 src="images/SO_NorthDakota_Mark_red-black.jpg"
@@ -28,9 +28,13 @@ class CoachHome extends Component {
             <Col></Col>
           </Row>
         </Header>
-        <CoachProfile user={this.props.user}></CoachProfile>
-        <Divider />
-        <CoachAthletes user={this.state.user}></CoachAthletes>
+        <Row justify="center">
+          <Col xs={{ span: 23 }} lg={{ span: 18 }}>
+            <CoachProfile user={this.props.user}></CoachProfile>
+            <Divider />
+            <CoachAthletes user={this.state.user}></CoachAthletes>
+          </Col>
+        </Row>
         <FooterBar />
       </div>
     );

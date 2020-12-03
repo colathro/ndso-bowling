@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Button, Col, Divider, Layout, Row, Tabs, Typography } from "antd";
 import FooterBar from "../ui/FooterBar";
-import AdminAddAthlete from "./AdminAddAthlete";
+import AdminCoaches from "./AdminCoaches";
 import AdminAthletes from "./AdminAthletes";
 import AdminDownloadData from "./AdminDownloadData";
 
@@ -45,13 +45,9 @@ class AdminHome extends Component {
           </TabPane>
           <TabPane tab="Coaches" key="2">
             <Row justify="center">
-              <Col>
-                <Title>Check back later!</Title>
-              </Col>
-            </Row>
-            <Row justify="center">
-              <Col>
-                <CoffeeOutlined style={{ fontSize: "80px" }} />
+              <Col xs={{ span: 23 }} lg={{ span: 18 }}>
+                <AdminCoaches user={this.state.user}></AdminCoaches>
+                <FooterBar />
               </Col>
             </Row>
           </TabPane>

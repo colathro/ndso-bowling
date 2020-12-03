@@ -178,7 +178,7 @@ namespace ndso_bowling.Controllers
         }
 
         [HttpPost("DeleteAthlete")]
-        public IActionResult GetAthletes(int id)
+        public IActionResult DeleteAthlete(int id)
         {
             var athlete = this._database.Athletes.FirstOrDefault(a => a.Id == id);
 
@@ -231,6 +231,105 @@ namespace ndso_bowling.Controllers
             {
                 return BadRequest(this.ModelState);
             }
+        }
+
+        [HttpGet("AllCoaches")]
+        public IActionResult AllCoaches(string lastname)
+        {
+            List<Coach> coaches;
+            if (lastname == null)
+            {
+                coaches = this._database.Coaches.ToList();
+            }
+            else
+            {
+                coaches = this._database.Coaches.Where(a => a.LastName.Contains(lastname)).ToList();
+            }
+
+            return Ok(coaches);
+        }
+
+        [HttpPut("Coach")]
+        public IActionResult UpdateCoach([FromBody] Coach coach)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var coachObject = this._database.Coaches.FirstOrDefault(a => a.Id == coach.Id);
+
+                if (coach.Birthday != null)
+                {
+                    coachObject.Birthday = coach.Birthday;
+                }
+                if (coach.FirstName != null)
+                {
+                    coachObject.FirstName = coach.FirstName;
+                }
+                if (coach.LastName != null)
+                {
+                    coachObject.LastName = coach.LastName;
+                }
+                if (coach.City != null)
+                {
+                    coachObject.City = coach.City;
+                }
+                if (coach.PhoneNumber != null)
+                {
+                    coachObject.PhoneNumber = coach.PhoneNumber;
+                }
+                if (coach.Email != null)
+                {
+                    coachObject.Email = coach.Email;
+                }
+
+                this._database.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(this.ModelState);
+            }
+        }
+        
+        [HttpPost("DeleteCoach")]
+        public IActionResult DeleteCoach(int id)
+        {
+            var coach = this._database.Coaches.FirstOrDefault(a => a.Id == id);
+
+            if (coach == default)
+            {
+                return NotFound();
+            }
+
+            var athletes = this._database.Athletes.Where(a => a.Coach == coach).ToList();
+
+            foreach (var athlete in athletes)
+            {
+                athlete.Coach = null;
+            }
+
+            var user = this._database.Users.Where(u => u.Coach == coach).First();
+
+            user.Coach = null;
+
+            this._database.SaveChanges();
+
+            this._database.Coaches.Remove(coach);
+
+            this._database.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpGet("AllCoachAthletes")]
+        public IActionResult AllCoachAthletes(int id)
+        {
+            List<Athlete> athletes;
+            var coach = this._database.Coaches.FirstOrDefault(c => c.Id == id);
+            athletes = this._database.Athletes.Where(a => a.Coach == coach).ToList();
+
+            return Ok(athletes);
         }
     }
 }

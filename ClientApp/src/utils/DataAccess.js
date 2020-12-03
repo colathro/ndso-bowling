@@ -3,6 +3,7 @@ class DataAccessClient {
     this.Auth = null;
     this.RefetchScores = null;
     this.RefetchPlayer = null;
+    this.RefetchCoaches = null;
   }
 
   async postData(uri, data, callback) {
